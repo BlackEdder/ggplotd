@@ -218,11 +218,12 @@ struct GGPlotD
         surface = Surface object of type cairo.Surface from cairoD library, on top of which this plot is drawn.
         width = Width of the given surface.
         height = Height of the given surface.
+        gridOn = Whether a grid is displayed on the surface.
 
     Returns:
         Resulting surface of the same type as input surface, with this plot drawn on top of it.
     */
-    ref cairo.Surface drawToSurface( ref cairo.Surface surface, int width, int height ) const
+    ref cairo.Surface drawToSurface( ref cairo.Surface surface, int width, int height, bool gridOn = false ) const
     {
         import std.range : empty, front;
         import std.typecons : Tuple;
@@ -345,7 +346,22 @@ struct GGPlotD
         auto plotMargins = Margins(currentMargins);
         if (!legends.empty)
             plotMargins.right += legends[0].width;
-
+        
+        // Draw grid on demand
+        if(gridOn) {
+            import ggplotd.aes : DefaultValues;
+            immutable defaultSize = DefaultValues.size;
+            DefaultValues.size *= 0.25;    // thin lines for the grid    
+            foreach (geom; geomGrid(aesX, aesY, bounds.width, bounds.height) )
+            {
+                surface = geom.drawGeom( surface,
+                    xFunc, yFunc, cFunc, sFunc,
+                    scale(), bounds, 
+                    plotMargins, width, height );
+            }
+            DefaultValues.size = defaultSize;
+        }
+        
         foreach (geom; chain(geomRange.data, gR) )
         {
             surface = geom.drawGeom( surface,

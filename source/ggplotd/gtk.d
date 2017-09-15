@@ -116,14 +116,14 @@ class GTKWindow
     }
 
     ///
-    void draw(T)( T gg, int width, int height )
+    void draw(T)( T gg, int width, int height, bool gridOn = false )
     {
         // Testing seems to indicate this doesn't need a mutex?
         sa.width = width;
         sa.height = height;
         // Writing to cairo surfaces should be safe. Displayer only reads from it.
         sa.surface = new cairod.ImageSurface(cairod.Format.CAIRO_FORMAT_ARGB32, width, height);
-        gg.drawToSurface( sa.surface, width, height );
+        gg.drawToSurface( sa.surface, width, height, gridOn );
     }
  
     ///
