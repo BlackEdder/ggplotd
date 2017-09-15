@@ -350,6 +350,7 @@ struct GGPlotD
         // Draw grid on demand
         if(gridOn) {
             import ggplotd.aes : DefaultValues;
+            import ggplotd.geom : geomGrid;
             immutable defaultSize = DefaultValues.size;
             DefaultValues.size *= 0.25;    // thin lines for the grid    
             foreach (geom; geomGrid(aesX, aesY, bounds.width, bounds.height) )
