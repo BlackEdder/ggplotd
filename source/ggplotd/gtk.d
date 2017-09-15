@@ -123,7 +123,7 @@ class GTKWindow
         sa.height = height;
         // Writing to cairo surfaces should be safe. Displayer only reads from it.
         sa.surface = new cairod.ImageSurface(cairod.Format.CAIRO_FORMAT_ARGB32, width, height);
-        gg.drawToSurface( sa.surface, width, height, gridOn );
+        gg.drawToSurface( sa.surface, width, height );
     }
  
     ///

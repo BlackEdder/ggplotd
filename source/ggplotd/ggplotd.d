@@ -223,7 +223,7 @@ struct GGPlotD
     Returns:
         Resulting surface of the same type as input surface, with this plot drawn on top of it.
     */
-    ref cairo.Surface drawToSurface( ref cairo.Surface surface, int width, int height, bool gridOn = false ) const
+    ref cairo.Surface drawToSurface( ref cairo.Surface surface, int width, int height ) const
     {
         import std.range : empty, front;
         import std.typecons : Tuple;
@@ -346,9 +346,8 @@ struct GGPlotD
         auto plotMargins = Margins(currentMargins);
         if (!legends.empty)
             plotMargins.right += legends[0].width;
-        
-        // Draw grid on demand
-        if(gridOn) {
+    
+        void drawGrid() {
             import ggplotd.aes : DefaultValues;
             import ggplotd.geom : geomGrid;
             immutable defaultSize = DefaultValues.size;
@@ -362,7 +361,10 @@ struct GGPlotD
             }
             DefaultValues.size = defaultSize;
         }
-        
+
+        if(gridState == GridState.Background) 
+            drawGrid();
+
         foreach (geom; chain(geomRange.data, gR) )
         {
             surface = geom.drawGeom( surface,
@@ -370,6 +372,9 @@ struct GGPlotD
                 scale(), bounds, 
                 plotMargins, width, height );
         }
+
+        if(gridState == GridState.Foreground) 
+            drawGrid();
 
         // Plot title
         surface = title.drawTitle( surface, currentMargins, width );
@@ -531,6 +536,27 @@ struct GGPlotD
             return defaultMargins(width, height);
     }
 
+    /// Grid is drawn in front of the plot 
+    /// Useful for density and similar plots
+    ref GGPlotD gridOnForeground() 
+    { 
+        this.gridState = GridState.Foreground;
+        return this;
+    }
+
+    /// Grid is drawn behind the plot 
+    ref GGPlotD gridOn() 
+    { 
+        this.gridState = GridState.Background;
+        return this;
+    }
+
+    /// Grid is drawn behind the plot 
+    ref GGPlotD gridOff() 
+    { 
+        this.gridState = GridState.Off;
+        return this;
+    }
 private:
     import std.range : Appender;
     import ggplotd.theme : Theme, ThemeFunction;
@@ -554,6 +580,9 @@ private:
     Nullable!(ColourGradientFunction) colourGradientFunction;
 
     Legend[] legends;
+
+    enum GridState { Off, Background, Foreground }
+    GridState gridState = GridState.Off;
 }
 
 unittest
@@ -782,7 +811,7 @@ unittest
     auto points = xs.map!((x) => Point(x,
         f(x) + uniform(-width(x),width(x))));
 
-    auto gg = GGPlotD().put( geomPoint( points ) );
+    auto gg = GGPlotD().gridOn.put( geomPoint( points ) );
 
     gg.save( "data.png" );
 }
