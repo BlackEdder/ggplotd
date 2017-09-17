@@ -604,18 +604,23 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
 
 
 /**
-    Draw grid along the ticks of both axes
+    Draw grid along the ticks of both axes.
+    Uses data originally created for geomAxis().
+    width and heigth define grid line lengths.
 */
-auto geomGrid(AES)(AES aesRawX, AES aesRawY, double width, double height)
+auto geomGrid(AES)(AES aesRawAxisX, AES aesRawAxisY, double width, double height)
 {
-    auto mergedX = DefaultValues.mergeRange(aesRawX);
-    auto mergedY = DefaultValues.mergeRange(aesRawY);
+    auto mergedX = DefaultValues.mergeRange(aesRawAxisX);
+    auto mergedY = DefaultValues.mergeRange(aesRawAxisY);
     double[] xs;
     double[] ys;
 
     enum newSubPath = double.nan;
 
-    if((!mergedX.empty)) mergedX.popFront;
+    // first data is originally marking the start of the axis
+    // which we don't want to use for grid drawing
+    if((!mergedX.empty)) mergedX.popFront; 
+
     while (!mergedX.empty)
     {
         auto tick = mergedX.front;

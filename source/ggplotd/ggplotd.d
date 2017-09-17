@@ -551,12 +551,13 @@ struct GGPlotD
         return this;
     }
 
-    /// Grid is drawn behind the plot 
+    /// Grid is not drawn 
     ref GGPlotD gridOff() 
     { 
         this.gridState = GridState.Off;
         return this;
     }
+
 private:
     import std.range : Appender;
     import ggplotd.theme : Theme, ThemeFunction;
@@ -811,9 +812,9 @@ unittest
     auto points = xs.map!((x) => Point(x,
         f(x) + uniform(-width(x),width(x))));
 
-    auto gg = GGPlotD().gridOn.put( geomPoint( points ) );
+    auto gg = GGPlotD().put( geomPoint( points ) );
 
-    gg.save( "data.png" );
+    gg.gridOn.save( "data.png" );
 }
 
 import std.range : ElementType;

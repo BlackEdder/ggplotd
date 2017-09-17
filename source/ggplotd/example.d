@@ -34,6 +34,7 @@ unittest
     auto withColour = Tuple!(string, "colour")("aquamarine").mergeRange(aes2);
     gg = gg.put(withColour.geomPoint);
 
+    // Show plots on a grid
     gg.gridOn.save("function.png");
 }
 
