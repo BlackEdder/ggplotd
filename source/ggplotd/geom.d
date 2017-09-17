@@ -571,11 +571,11 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
         // Draw ticks perpendicular to main axis;
         if (xs.length > 1 && !merged.empty)
         {
-            xs ~= [tick.x + direction[1], tick.x];
-            ys ~= [tick.y + direction[0], tick.y];
+            xs ~= [tick.x - direction[1], tick.x];
+            ys ~= [tick.y - direction[0], tick.y];
 
-            lxs ~= tick.x - 1.3*direction[1];
-            lys ~= tick.y - 1.3*direction[0];
+            lxs ~= tick.x - 2*direction[1];
+            lys ~= tick.y - 2*direction[0];
             lbls ~= tick.label;
             langles ~= tick.angle;
         }
@@ -601,6 +601,60 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
         )
         .chain( geomLabel(aesM) );
 }
+
+
+/**
+    Draw grid along the ticks of both axes.
+    Uses data originally created for geomAxis().
+    width and heigth define grid line lengths.
+*/
+auto geomGrid(AES)(AES aesRawAxisX, AES aesRawAxisY, double width, double height)
+{
+    import ggplotd.range : mergeRange;
+    auto mergedX = DefaultValues.mergeRange(aesRawAxisX);
+    auto mergedY = DefaultValues.mergeRange(aesRawAxisY);
+    double[] xs;
+    double[] ys;
+
+    enum newSubPath = double.nan;
+
+    // first data is originally marking the start of the axis
+    // which we don't want to use for grid drawing
+    if((!mergedX.empty)) mergedX.popFront; 
+
+    while (!mergedX.empty)
+    {
+        auto tick = mergedX.front;
+        mergedX.popFront;
+
+        // Draw line perpendicular to x-axis;
+        if (!mergedX.empty)
+        {
+            xs ~= [tick.x, tick.x, newSubPath];
+            ys ~= [tick.y, tick.y + height, newSubPath];
+        }
+    }
+
+    if((!mergedY.empty)) mergedY.popFront;
+    while (!mergedY.empty)
+    {
+        auto tick = mergedY.front;
+        mergedY.popFront;
+
+         // Draw line perpendicular to y-axis;
+        if (!mergedY.empty)
+        {
+            xs ~= [tick.x, tick.x + width, newSubPath];
+            ys ~= [tick.y, tick.y, newSubPath];
+        }
+    }
+
+    import std.algorithm : map;
+    import std.range : zip;
+    return xs.zip(ys).map!((a) => aes!("x", "y", "mask", "scale")
+        (a[0], a[1], false, false)).geomLine();
+}
+
 
 /**
     Draw Label at given x and y position

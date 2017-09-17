@@ -34,7 +34,8 @@ unittest
     auto withColour = Tuple!(string, "colour")("aquamarine").mergeRange(aes2);
     gg = gg.put(withColour.geomPoint);
 
-    gg.save("function.png");
+    // Show plots on a grid
+    gg.gridOn.save("function.png");
 }
 
 ///
@@ -232,12 +233,12 @@ unittest
                 gg = format("Parameter %s", j).yaxisLabel.putIn(gg);
                 gg = samples.map!((sample) => aes!("x", "y")(sample[i], sample[j]))
                     .geomDensity2D
-                    .putIn(gg);
+                    .putIn(gg).gridOnForeground;
             } else {
                 gg = "Density".yaxisLabel.putIn(gg);
                 gg = samples.map!((sample) => aes!("x", "y")(sample[i], sample[j]))
                     .geomDensity
-                    .putIn(gg);
+                    .putIn(gg).gridOn;
             }
             facets = gg.putIn(facets);
         }

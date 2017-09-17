@@ -116,7 +116,7 @@ class GTKWindow
     }
 
     ///
-    void draw(T)( T gg, int width, int height )
+    void draw(T)( T gg, int width, int height, bool gridOn = false )
     {
         // Testing seems to indicate this doesn't need a mutex?
         sa.width = width;

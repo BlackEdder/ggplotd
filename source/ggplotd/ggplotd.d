@@ -218,6 +218,7 @@ struct GGPlotD
         surface = Surface object of type cairo.Surface from cairoD library, on top of which this plot is drawn.
         width = Width of the given surface.
         height = Height of the given surface.
+        gridOn = Whether a grid is displayed on the surface.
 
     Returns:
         Resulting surface of the same type as input surface, with this plot drawn on top of it.
@@ -345,6 +346,24 @@ struct GGPlotD
         auto plotMargins = Margins(currentMargins);
         if (!legends.empty)
             plotMargins.right += legends[0].width;
+    
+        void drawGrid() {
+            import ggplotd.aes : DefaultValues;
+            import ggplotd.geom : geomGrid;
+            immutable defaultSize = DefaultValues.size;
+            DefaultValues.size *= 0.25;    // thin lines for the grid    
+            foreach (geom; geomGrid(aesX, aesY, bounds.width, bounds.height) )
+            {
+                surface = geom.drawGeom( surface,
+                    xFunc, yFunc, cFunc, sFunc,
+                    scale(), bounds, 
+                    plotMargins, width, height );
+            }
+            DefaultValues.size = defaultSize;
+        }
+
+        if(gridState == GridState.Background) 
+            drawGrid();
 
         foreach (geom; chain(geomRange.data, gR) )
         {
@@ -353,6 +372,9 @@ struct GGPlotD
                 scale(), bounds, 
                 plotMargins, width, height );
         }
+
+        if(gridState == GridState.Foreground) 
+            drawGrid();
 
         // Plot title
         surface = title.drawTitle( surface, currentMargins, width );
@@ -514,6 +536,28 @@ struct GGPlotD
             return defaultMargins(width, height);
     }
 
+    /// Grid is drawn in front of the plot 
+    /// Useful for density and similar plots
+    ref GGPlotD gridOnForeground() 
+    { 
+        this.gridState = GridState.Foreground;
+        return this;
+    }
+
+    /// Grid is drawn behind the plot 
+    ref GGPlotD gridOn() 
+    { 
+        this.gridState = GridState.Background;
+        return this;
+    }
+
+    /// Grid is not drawn 
+    ref GGPlotD gridOff() 
+    { 
+        this.gridState = GridState.Off;
+        return this;
+    }
+
 private:
     import std.range : Appender;
     import ggplotd.theme : Theme, ThemeFunction;
@@ -537,6 +581,9 @@ private:
     Nullable!(ColourGradientFunction) colourGradientFunction;
 
     Legend[] legends;
+
+    enum GridState { Off, Background, Foreground }
+    GridState gridState = GridState.Off;
 }
 
 unittest
@@ -767,7 +814,7 @@ unittest
 
     auto gg = GGPlotD().put( geomPoint( points ) );
 
-    gg.save( "data.png" );
+    gg.gridOn.save( "data.png" );
 }
 
 import std.range : ElementType;
