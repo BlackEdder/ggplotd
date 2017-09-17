@@ -610,6 +610,7 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
 */
 auto geomGrid(AES)(AES aesRawAxisX, AES aesRawAxisY, double width, double height)
 {
+    import ggplotd.range : mergeRange;
     auto mergedX = DefaultValues.mergeRange(aesRawAxisX);
     auto mergedY = DefaultValues.mergeRange(aesRawAxisY);
     double[] xs;
