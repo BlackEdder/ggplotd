@@ -592,7 +592,12 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
     direction[0] *= tickLength / dirLength;
     direction[1] *= tickLength / dirLength;
  
-    auto size = aesRaw.front.size;
+    import ggplotd.aes : hasAesField;
+    static if (hasAesField!(AES, "size"))
+        auto size = aesRaw.front.size;
+    else
+        auto size = DefaultValues.size;
+
     while (!aesRaw.empty)
     {
         auto tick = aesRaw.front;
