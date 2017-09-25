@@ -453,7 +453,7 @@ auto guideFunction(string type)(GuideStore!type gs)
             import std.math : isNaN;
             if (isNaN(a))
                 return a;
-            assert(a >= gs.min() || a <= gs.max(), "Value falls outside of range");
+            assert(a >= gs.min() && a <= gs.max(), "Value falls outside of range");
             if (gs.min() < 0.4 || gs.max() > 5.0) // Limit the size to between these values
             {
                 if (gs.max() == gs.min())
@@ -468,7 +468,7 @@ auto guideFunction(string type)(GuideStore!type gs)
             import std.math : isNaN;
             if (isNaN(a))
                 return a;
-            assert(a >= gs.min() || a <= gs.max(), "Value falls outside of range");
+            assert(a >= gs.min() && a <= gs.max(), "Value falls outside of range");
             return a;
         };
 
