@@ -83,7 +83,7 @@ private auto fillAndStroke( cairo.Context context, in RGBA colour,
 /++
 General function for drawing geomShapes
 +/
-private template geomShape( string shape, AES )
+private template geomShape( string shape, const(double[]) dash, AES )
 {
     import std.algorithm : map;
     import ggplotd.range : mergeRange;
@@ -114,6 +114,11 @@ private template geomShape( string shape, AES )
                     return context;
                 context.save();
                 context.translate(x, y);
+                static if(dash != []) {
+                    import std.conv;
+                    double[dash.length] sizedDash = dash*flags.size;
+                    context.setDash(sizedDash, 0.0);
+                }
                 import ggplotd.aes : hasAesField;
                 static if (hasAesField!(typeof(tup), "sizeStore")) {
                     auto width = tup.width*sFunc(tup.sizeStore);
@@ -216,6 +221,10 @@ private template geomShape( string shape, AES )
     {
         return VolderMort(aes);
     }
+}
+
+auto geomShape( string shape, AES ) (AES aes) {
+    return geomShape!(shape, [])(aes);
 }
 
 unittest
@@ -389,7 +398,7 @@ unittest
 }
 
 /// Create lines from data 
-template geomLine(AES, const(double[]) dash)
+template geomLine(const(double[]) dash, AES)
 {
     import std.algorithm : map;
     import std.range : array, zip;
@@ -481,17 +490,17 @@ template geomLine(AES, const(double[]) dash)
 
 auto geomLine(AES)(AES aes)
 {
-    return geomLine!(AES,[])(aes);
+    return geomLine!([])(aes);
 }
 
 auto geomDashedLine(AES)(AES aes)
 {
-    return geomLine!(AES,[4.0,4.0])(aes);
+    return geomLine!([4.0,4.0])(aes);
 }
 
 auto geomDottedLine(AES)(AES aes)
 {
-    return geomLine!(AES,[1.0,2.0])(aes);
+    return geomLine!([1.0,2.0])(aes);
 }
 
 ///
