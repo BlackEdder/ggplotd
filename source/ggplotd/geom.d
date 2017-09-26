@@ -54,7 +54,7 @@ struct Geom
     GuideStore!"size" sizeStore;
 
     /// Whether to mask/prevent drawing outside plotting area
-    bool mask = true; 
+    bool mask = true;
 }
 
 import ggplotd.colourspace : RGBA;
@@ -389,7 +389,7 @@ unittest
 }
 
 /// Create lines from data 
-template geomLine(AES)
+template geomLine(AES, const(double[]) dash)
 {
     import std.algorithm : map;
     import std.range : array, zip;
@@ -418,6 +418,13 @@ template geomLine(AES)
                 import std.math : isFinite;
                 auto coords = coordsZip.save;
                 auto fr = coords.front;
+
+                static if(dash != []){
+                    import std.conv;
+                    double[dash.length] sizedDash = dash*flags.size;
+                    context.setDash(sizedDash, 0.0);
+                }
+
                 context.moveTo(
                     xFunc(fr.x, flags.fieldWithDefault!("scale")(true)), 
                     yFunc(fr.y, flags.fieldWithDefault!("scale")(true)));
@@ -430,7 +437,7 @@ template geomLine(AES)
                     if (isFinite(x) && isFinite(y))
                     {
                         context.lineTo(x, y);
-                        context.lineWidth = 2.0*flags.size;
+                        context.lineWidth = flags.size;
                     } else {
                         context.newSubPath();
                     }
@@ -470,6 +477,21 @@ template geomLine(AES)
     {
         return VolderMort(aes);
     }
+}
+
+auto geomLine(AES)(AES aes)
+{
+    return geomLine!(AES,[])(aes);
+}
+
+auto geomDashedLine(AES)(AES aes)
+{
+    return geomLine!(AES,[4.0,4.0])(aes);
+}
+
+auto geomDottedLine(AES)(AES aes)
+{
+    return geomLine!(AES,[1.0,2.0])(aes);
 }
 
 ///
