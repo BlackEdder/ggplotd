@@ -18,13 +18,13 @@ unittest
     import std.typecons : Tuple;
     import ggplotd.stat : statFunction;
     import ggplotd.ggplotd : GGPlotD;
-    import ggplotd.geom : geomLine, geomPoint;
+    import ggplotd.geom : geomDashedLine, geomPoint;
     import ggplotd.range : mergeRange;
 
     auto f = (double x) { return x / (1 + x); };
 
     auto aes = statFunction(f, 0.0, 10);
-    auto gg = GGPlotD().put(geomLine(aes));
+    auto gg = GGPlotD().put(Tuple!(double, "size")(2.0).mergeRange(aes).geomDashedLine );
 
     // Generate some noisy points 
     auto f2 = (double x) { return x / (1 + x) * uniform(0.75, 1.25); };
@@ -268,6 +268,7 @@ unittest
     auto diamonds = readText("test_files/diamonds.csv").csvReader!(Diamond)(
     ["carat","clarity","price"]);
 
+                   
     auto gg = diamonds.map!((diamond) => 
         // Map data to aesthetics (x, y and colour)
         aes!("x", "y", "colour", "size")(diamond.carat, diamond.price, diamond.clarity, 0.8))

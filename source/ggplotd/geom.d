@@ -54,7 +54,7 @@ struct Geom
     GuideStore!"size" sizeStore;
 
     /// Whether to mask/prevent drawing outside plotting area
-    bool mask = true; 
+    bool mask = true;
 }
 
 import ggplotd.colourspace : RGBA;
@@ -83,7 +83,7 @@ private auto fillAndStroke( cairo.Context context, in RGBA colour,
 /++
 General function for drawing geomShapes
 +/
-private template geomShape( string shape, AES )
+private template geomShape( string shape, const(double[]) dash, AES )
 {
     import std.algorithm : map;
     import ggplotd.range : mergeRange;
@@ -114,6 +114,11 @@ private template geomShape( string shape, AES )
                     return context;
                 context.save();
                 context.translate(x, y);
+                static if(dash != []) {
+                    import std.conv;
+                    double[dash.length] sizedDash = dash*flags.size;
+                    context.setDash(sizedDash, 0.0);
+                }
                 import ggplotd.aes : hasAesField;
                 static if (hasAesField!(typeof(tup), "sizeStore")) {
                     auto width = tup.width*sFunc(tup.sizeStore);
@@ -143,16 +148,30 @@ private template geomShape( string shape, AES )
                     } else {
                         context.scale( width, height );
                     }
-                    static if (shape=="triangle")
+
+                    static if (shape=="triangle") 
                     {
                         context.moveTo( -0.5, -0.5 );
                         context.lineTo( 0.5, -0.5 );
                         context.lineTo( 0, 0.5 );
-                    } else static if (shape=="diamond") {
+                    } else static if (shape=="diamond") 
+                    {
                         context.moveTo( 0, -0.5 );
                         context.lineTo( 0.5, 0 );
                         context.lineTo( 0, 0.5 );
                         context.lineTo( -0.5, 0 );
+                    } else static if (shape=="cross" ) 
+                    {
+                        context.moveTo( -0.5, -0.5 );
+                        context.lineTo(  0.5,  0.5 );
+                        context.moveTo(  0.5, -0.5 );
+                        context.lineTo(  -0.5, 0.5 );
+                    } else static if (shape=="plus" ) 
+                    {
+                        context.moveTo( -0.5,  0.0 );
+                        context.lineTo(  0.5,  0.0 );
+                        context.moveTo(  0.0, -0.5 );
+                        context.lineTo(  0.0,  0.5 );
                     } else {
                         context.moveTo( -0.5, -0.5 );
                         context.lineTo( -0.5,  0.5 );
@@ -202,6 +221,10 @@ private template geomShape( string shape, AES )
     {
         return VolderMort(aes);
     }
+}
+
+auto geomShape( string shape, AES ) (AES aes) {
+    return geomShape!(shape, [])(aes);
 }
 
 unittest
@@ -330,6 +353,28 @@ auto geomDiamond(AES)(AES aes)
     return geomShape!("diamond", AES)(aes);
 }
 
+/**
+Draw cross centered at given x,y location
+
+Aside from x and y also width and height are required.
+If the type of width is of type Pixel (see aes.d) then dimensions are assumed to be in Pixel (not user coordinates).
+*/
+auto geomCross(AES)(AES aes)
+{
+    return geomShape!("cross", AES)(aes);
+}
+
+/**
+Draw plus centered at given x,y location
+
+Aside from x and y also width and height are required.
+If the type of width is of type Pixel (see aes.d) then dimensions are assumed to be in Pixel (not user coordinates).
+*/
+auto geomPlus(AES)(AES aes)
+{
+    return geomShape!("plus", AES)(aes);
+}
+
 /// Create points from the data
 auto geomPoint(AES)(AES aesRange)
 {
@@ -353,7 +398,7 @@ unittest
 }
 
 /// Create lines from data 
-template geomLine(AES)
+template geomLine(const(double[]) dash, AES)
 {
     import std.algorithm : map;
     import std.range : array, zip;
@@ -382,6 +427,13 @@ template geomLine(AES)
                 import std.math : isFinite;
                 auto coords = coordsZip.save;
                 auto fr = coords.front;
+
+                static if(dash != []){
+                    import std.conv;
+                    double[dash.length] sizedDash = dash*flags.size;
+                    context.setDash(sizedDash, 0.0);
+                }
+
                 context.moveTo(
                     xFunc(fr.x, flags.fieldWithDefault!("scale")(true)), 
                     yFunc(fr.y, flags.fieldWithDefault!("scale")(true)));
@@ -394,7 +446,7 @@ template geomLine(AES)
                     if (isFinite(x) && isFinite(y))
                     {
                         context.lineTo(x, y);
-                        context.lineWidth = 2.0*flags.size;
+                        context.lineWidth = flags.size;
                     } else {
                         context.newSubPath();
                     }
@@ -434,6 +486,21 @@ template geomLine(AES)
     {
         return VolderMort(aes);
     }
+}
+
+auto geomLine(AES)(AES aes)
+{
+    return geomLine!([])(aes);
+}
+
+auto geomDashedLine(AES)(AES aes)
+{
+    return geomLine!([4.0,4.0])(aes);
+}
+
+auto geomDottedLine(AES)(AES aes)
+{
+    return geomLine!([1.0,2.0])(aes);
 }
 
 ///
@@ -541,8 +608,6 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
     import std.range : chain, empty, repeat;
     import std.math : sqrt, pow;
 
-    import ggplotd.range : mergeRange;
-
     double[] xs;
     double[] ys;
 
@@ -551,25 +616,29 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
     double[] langles;
     string[] lbls;
 
-    auto merged = DefaultValues.mergeRange(aesRaw);
-
     immutable toDir = 
-        merged.find!("a.x != b.x || a.y != b.y")(merged.front).front; 
-    auto direction = [toDir.x - merged.front.x, toDir.y - merged.front.y];
+        aesRaw.find!("a.x != b.x || a.y != b.y")(aesRaw.front).front; 
+    auto direction = [toDir.x - aesRaw.front.x, toDir.y - aesRaw.front.y];
     immutable dirLength = sqrt(pow(direction[0], 2) + pow(direction[1], 2));
     direction[0] *= tickLength / dirLength;
     direction[1] *= tickLength / dirLength;
  
-    while (!merged.empty)
+    import ggplotd.aes : hasAesField;
+    static if (hasAesField!(AES, "size"))
+        auto size = aesRaw.front.size;
+    else
+        auto size = DefaultValues.size;
+
+    while (!aesRaw.empty)
     {
-        auto tick = merged.front;
+        auto tick = aesRaw.front;
         xs ~= tick.x;
         ys ~= tick.y;
 
-        merged.popFront;
+        aesRaw.popFront;
 
         // Draw ticks perpendicular to main axis;
-        if (xs.length > 1 && !merged.empty)
+        if (xs.length > 1 && !aesRaw.empty)
         {
             xs ~= [tick.x + direction[1], tick.x];
             ys ~= [tick.y + direction[0], tick.y];
@@ -590,16 +659,17 @@ auto geomAxis(AES)(AES aesRaw, double tickLength, string label)
 
     import std.algorithm : map;
     import std.range : zip;
-    return xs.zip(ys).map!((a) => aes!("x", "y", "mask", "scale")
-        (a[0], a[1], false, false)).geomLine()
-        .chain( 
-          lxs.zip(lys, lbls, langles)
-            .map!((a) => 
-                aes!("x", "y", "label", "angle", "mask", "size", "scale")
-                    (a[0], a[1], a[2], a[3], false, aesRaw.front.size, false ))
-            .geomLabel
-        )
-        .chain( geomLabel(aesM) );
+    return xs.zip(ys)
+        .map!((a) => aes!("x", "y", "mask", "scale",) (a[0], a[1], false, false))
+        .geomLine
+        .chain(
+            lxs.zip(lys, lbls, langles)
+                .map!((a) => 
+                    aes!("x", "y", "label", "angle", "mask", "size", "scale")
+                        (a[0], a[1], a[2], a[3], false, size, false ))
+                .geomLabel,
+            aesM.geomLabel
+        );
 }
 
 /**

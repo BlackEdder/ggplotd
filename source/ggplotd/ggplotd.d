@@ -139,6 +139,7 @@ private auto drawGeom( in Geom geom, ref cairo.Surface surface,
     context = scaleFunction(context, bounds,
         width.to!double - (margins.left+margins.right),
         height.to!double - (margins.top+margins.bottom));
+
     context = geom.draw(context, xFunc, yFunc, cFunc, sFunc);
     return surface;
 }
@@ -345,7 +346,7 @@ struct GGPlotD
         auto plotMargins = Margins(currentMargins);
         if (!legends.empty)
             plotMargins.right += legends[0].width;
-
+ 
         foreach (geom; chain(geomRange.data, gR) )
         {
             surface = geom.drawGeom( surface,
