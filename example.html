@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<script src="highlight.pack.js"></script>
+<title>example</title>
+<base href=""/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>example</small>
+</div>
+<div class="sidebar">
+<a href="example.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="example.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><span class=" selected"><a href="example.html">example</a></span>
+</li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd">
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><div class="section "><p>This module contains the different examples that are shown in the README
+</p>
+
+
+</div>
+<div class="section"><p>It will only be included in unittest code, but is empty otherwise.
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/function.png
+import std.random : uniform;
+import std.typecons : Tuple;
+import <a href="ggplotd/stat.html">ggplotd.stat</a> : <a href="ggplotd/stat.html#statFunction">statFunction</a>;
+import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom/geomLine.html">geomLine</a>, <a href="ggplotd/geom.html#geomPoint">geomPoint</a>;
+import <a href="ggplotd/range.html">ggplotd.range</a> : <a href="ggplotd/range.html#mergeRange">mergeRange</a>;
+
+auto f = (double x) { return x / (1 + x); };
+
+auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/stat.html#statFunction">statFunction</a>(f, 0.0, 10);
+auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put(<a href="ggplotd/geom/geomLine.html">geomLine</a>(<a href="ggplotd/aes.html#aes">aes</a>));
+
+// Generate some noisy points 
+auto f2 = (double x) { return x / (1 + x) * uniform(0.75, 1.25); };
+auto aes2 = f2.<a href="ggplotd/stat.html#statFunction">statFunction</a>(0.0, 10, 25);
+
+// Show points in different colour
+auto withColour = Tuple!(string, "colour")("aquamarine").<a href="ggplotd/range.html#mergeRange">mergeRange</a>(aes2);
+gg = gg.put(withColour.<a href="ggplotd/geom.html#geomPoint">geomPoint</a>);
+
+gg.save("function.png");
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/hist2D.svg
+import std.array : array;
+import std.algorithm : map;
+import std.range : iota, zip;
+import std.random : uniform;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/colour.html">ggplotd.colour</a> : <a href="ggplotd/colour.html#colourGradient">colourGradient</a>;
+import <a href="ggplotd/colourspace.html">ggplotd.colourspace</a> : <a href="ggplotd/colourspace.html#XYZ">XYZ</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>;
+import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>, <a href="ggplotd/ggplotd.html#putIn">putIn</a>;
+import <a href="ggplotd/legend.html">ggplotd.legend</a> : <a href="ggplotd/legend.html#continuousLegend">continuousLegend</a>;
+
+auto xs = iota(0,500,1).map!((x) => uniform(0.0,5)+uniform(0.0,5))
+    .array;
+auto ys = iota(0,500,1).map!((y) => uniform(0.0,5)+uniform(0.0,5))
+    .array;
+auto gg = xs.zip(ys)
+            .map!((t) => <a href="ggplotd/aes.html#aes">aes</a>!("x","y")(t[0], t[1]))
+            .<a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>.<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+// Use a different colour scheme
+gg.put( <a href="ggplotd/colour.html#colourGradient">colourGradient</a>!<a href="ggplotd/colourspace.html#XYZ">XYZ</a>( "white-cornflowerBlue-crimson" ) );
+
+gg.put(<a href="ggplotd/legend.html#continuousLegend">continuousLegend</a>);
+
+gg.save( "hist2D.svg" );
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/filled_density.svg
+import std.array : array;
+import std.algorithm : map;
+import std.range : repeat, iota, chain, zip;
+import std.random : uniform;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomDensity">geomDensity</a>;
+import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>, <a href="ggplotd/ggplotd.html#putIn">putIn</a>;
+import <a href="ggplotd/legend.html">ggplotd.legend</a> : <a href="ggplotd/legend.html#discreteLegend">discreteLegend</a>;
+auto xs = iota(0,50,1).map!((x) => uniform(0.0,5)+uniform(0.0,5)).array;
+auto cols = "a".repeat(25).chain("b".repeat(25));
+auto gg = xs.zip(cols, 0.45.repeat(xs.length))
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "colour", "fill")(a[0], a[1], a[2]))
+    .<a href="ggplotd/geom.html#geomDensity">geomDensity</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+gg = <a href="ggplotd/legend.html#discreteLegend">discreteLegend</a>.<a href="ggplotd/ggplotd.html#putIn">putIn</a>(gg);
+gg.save( "filled_density.svg" );
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/density2D.png
+import std.algorithm : map;
+import std.range : iota, zip;
+import std.random : uniform, Random, unpredictableSeed;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/colour.html">ggplotd.colour</a> : <a href="ggplotd/colour.html#colourGradient">colourGradient</a>;
+import <a href="ggplotd/colourspace.html">ggplotd.colourspace</a> : <a href="ggplotd/colourspace.html#XYZ">XYZ</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomDensity2D">geomDensity2D</a>;
+import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>, <a href="ggplotd/ggplotd.html#putIn">putIn</a>;
+import <a href="ggplotd/legend.html">ggplotd.legend</a> : <a href="ggplotd/legend.html#continuousLegend">continuousLegend</a>;
+
+// For debugging reasons, print out the current seed
+import std.stdio : writeln;
+auto seed = unpredictableSeed;
+auto rnd = Random(seed);
+//auto rnd = Random(1193462362); // This is a seed that currently fails. Use it for debugging
+writeln("Random seed MCMC: ", seed);
+
+auto xs = iota(0,500,1).map!((x) => uniform(0.0,5, rnd)+uniform(0.0,5, rnd));
+auto ys = iota(0,500,1).map!((y) => uniform(0.5,1.5, rnd)+uniform(0.5,1.5, rnd));
+auto gg = zip(xs, ys)
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x","y")(a[0], a[1]))
+    .<a href="ggplotd/geom.html#geomDensity2D">geomDensity2D</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>( <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>() );
+// Use a different colour scheme
+gg.put( <a href="ggplotd/colour.html#colourGradient">colourGradient</a>!<a href="ggplotd/colourspace.html#XYZ">XYZ</a>( "white-cornflowerBlue-crimson" ) );
+gg.put(<a href="ggplotd/legend.html#continuousLegend">continuousLegend</a>);
+
+gg.save( "density2D.png" );
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/labels.png
+import std.algorithm : map;
+import std.range : zip;
+import std.math : PI;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomPoint">geomPoint</a>, <a href="ggplotd/geom/geomLabel.html">geomLabel</a>;
+import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>;
+import <a href="ggplotd/axes.html">ggplotd.axes</a> : xaxisRange, yaxisRange;
+auto dt = zip( [0.0,1,2,3,4], [4.0,3,2,1,0], 
+    ["center", "left", "right", "bottom", "top"],
+    [0.0, 0.0, 0.0, 0.0, 0.0],
+    ["center", "left", "right", "bottom", "top"])
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "label", "angle", "justify")
+        (a[0], a[1], a[2], a[3], a[4]));
+
+auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>()
+    .put(<a href="ggplotd/geom.html#geomPoint">geomPoint</a>( dt ))
+    .put(<a href="ggplotd/geom/geomLabel.html">geomLabel</a>(dt))
+    .put(xaxisRange(-2,11))
+    .put(yaxisRange(-2,11));
+
+auto dt2 = zip( [1.0,2,3,4,5], [5.0,4,3,2,1], 
+    ["center", "left", "right", "bottom", "top"],
+    [0.5*PI, 0.5*PI, 0.5*PI, 0.5*PI, 0.5*PI],
+    ["center", "left", "right", "bottom", "top"])
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "label", "angle", "justify")
+        (a[0], a[1], a[2], a[3], a[4]));
+gg.put( <a href="ggplotd/geom/geomLabel.html">geomLabel</a>(dt2) ).put(<a href="ggplotd/geom.html#geomPoint">geomPoint</a>(dt2));
+
+auto dt3 = zip( [1.0,2,4,6,7], [8.0,7,5,3,2], 
+    ["center", "left", "right", "bottom", "top"],
+    [0.25*PI, 0.25*PI, 0.25*PI, 0.25*PI, 0.25*PI],
+    ["center", "left", "right", "bottom", "top"])
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "label", "angle", "justify")
+        (a[0], a[1], a[2], a[3], a[4]));
+gg.put( <a href="ggplotd/geom/geomLabel.html">geomLabel</a>(dt3) ).put(<a href="ggplotd/geom.html#geomPoint">geomPoint</a>(dt3));
+
+gg.save( "labels.png" );
+
+</code></pre>
+
+</div>
+</div></div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

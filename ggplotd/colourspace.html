@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css"/>
+<script src="../highlight.pack.js"></script>
+<title>ggplotd.colourspace</title>
+<base href="../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.colourspace</small>
+</div>
+<div class="sidebar">
+<a href="ggplotd/colourspace.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/colourspace.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><a class="anchor" id="HCY"></a><div class="symbol"><div class="description"><pre><code>alias HCY = chsx.<a href="ggplotd/colourspace.html#HCY">HCY</a>!double
+</code></pre>
+<div class="section "><p>HCY colourspace
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="RGB"></a><div class="symbol"><div class="description"><pre><code>alias RGB = crgb.<a href="ggplotd/colourspace.html#RGB">RGB</a>!("rgb", <a href="http://dlang.org/type.html#basic-data-types">double</a>)
+</code></pre>
+<div class="section "><p>RGB colourspace
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="RGBA"></a><div class="symbol"><div class="description"><pre><code>alias RGBA = crgb.<a href="ggplotd/colourspace.html#RGB">RGB</a>!("rgba", <a href="http://dlang.org/type.html#basic-data-types">double</a>)
+</code></pre>
+<div class="section "><p>RGBA colourspace
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="XYZ"></a><div class="symbol"><div class="description"><pre><code>alias XYZ = cxyz.<a href="ggplotd/colourspace.html#XYZ">XYZ</a>!double
+</code></pre>
+<div class="section "><p>XYZ colourspace
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="toColourSpace"></a><div class="symbol"><div class="description"><pre><code>alias toColourSpace = cspace.convertColor
+</code></pre>
+<div class="section "><p>Convert to another colour space
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="isColour"></a><div class="symbol"><div class="description"><pre><code>alias isColour = cColor.isColor
+</code></pre>
+<div class="section "><p>Check whether it is a colour
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="toCairoRGBA"></a><div class="symbol"><div class="description"><pre><code>public cairo.<a href="ggplotd/colourspace.html#RGBA">RGBA</a> <a href="ggplotd/colourspace.html#toCairoRGBA">toCairoRGBA</a>(C)(in C from)
+</code></pre>
+<div class="section "><p>Convert to Cairo colour
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="fromCairoRGBA"></a><div class="symbol"><div class="description"><pre><code>public C <a href="ggplotd/colourspace.html#fromCairoRGBA">fromCairoRGBA</a>(C)(in cairo.<a href="ggplotd/colourspace.html#RGBA">RGBA</a> crgb)
+</code></pre>
+<div class="section "><p>Convert from Cairo colour to specified type (template)
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="toTuple"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/colourspace.html#toTuple">toTuple</a>(T : <a href="ggplotd/colourspace.html#HCY">HCY</a>)(T colour)
+</code></pre>
+<div class="section "><p>Convert colour to a tuple holding the values
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="toTuple"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/colourspace.html#toTuple">toTuple</a>(T : <a href="ggplotd/colourspace.html#XYZ">XYZ</a>)(T colour)
+</code></pre>
+<div class="section "><p>Convert colour to a tuple holding the values
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="toTuple"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/colourspace.html#toTuple">toTuple</a>(T)(T colour)
+</code></pre>
+<div class="section "><p>Convert colour to a tuple holding the values
+</p>
+
+
+</div>
+</div></div><div class="description"><div class="section "><p>This module mostly exist to have a bridge with the ggplotd code and the ggplotd.color code. That is because the ggplotd.color code might become part of phobos one day and I don't want to depend directly on ggplotd's implementation, so that it stays easy to switch to an alternative (phobos) based implementation.
+</p>
+
+
+</div>
+</div><div class="section members"><h2>Aliases</h2><table><tr><td><a href="ggplotd/colourspace.html#HCY">HCY</a></td><td><pre><code>chsx.<a href="ggplotd/colourspace.html#HCY">HCY</a>!double
+</code></pre>
+</td><td><p>HCY colourspace
+</p>
+</td></tr><tr><td><a href="ggplotd/colourspace.html#RGB">RGB</a></td><td><pre><code>crgb.<a href="ggplotd/colourspace.html#RGB">RGB</a>!("rgb", <a href="http://dlang.org/type.html#basic-data-types">double</a>)
+</code></pre>
+</td><td><p>RGB colourspace
+</p>
+</td></tr><tr><td><a href="ggplotd/colourspace.html#RGBA">RGBA</a></td><td><pre><code>crgb.<a href="ggplotd/colourspace.html#RGB">RGB</a>!("rgba", <a href="http://dlang.org/type.html#basic-data-types">double</a>)
+</code></pre>
+</td><td><p>RGBA colourspace
+</p>
+</td></tr><tr><td><a href="ggplotd/colourspace.html#XYZ">XYZ</a></td><td><pre><code>cxyz.<a href="ggplotd/colourspace.html#XYZ">XYZ</a>!double
+</code></pre>
+</td><td><p>XYZ colourspace
+</p>
+</td></tr><tr><td><a href="ggplotd/colourspace.html#toColourSpace">toColourSpace</a></td><td><pre><code>cspace.convertColor
+</code></pre>
+</td><td><p>Convert to another colour space
+</p>
+</td></tr><tr><td><a href="ggplotd/colourspace.html#isColour">isColour</a></td><td><pre><code>cColor.isColor
+</code></pre>
+</td><td><p>Check whether it is a colour
+</p>
+</td></tr></table><h2>Functions</h2><table><tr><td><a href="ggplotd/colourspace.html#toCairoRGBA">toCairoRGBA</a><span class="extrainfo"></span></td><td></td><td><p>Convert to Cairo colour
+</p>
+</td></tr><tr><td><a href="ggplotd/colourspace.html#fromCairoRGBA">fromCairoRGBA</a><span class="extrainfo"></span></td><td></td><td><p>Convert from Cairo colour to specified type (template)
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/colourspace.html#toTuple">toTuple</a><span class="extrainfo"></span></td><td></td><td><p>Convert colour to a tuple holding the values
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/colourspace.html#toTuple">toTuple</a><span class="extrainfo"></span></td><td></td><td><p>Convert colour to a tuple holding the values
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/colourspace.html#toTuple">toTuple</a><span class="extrainfo"></span></td><td></td><td><p>Convert colour to a tuple holding the values
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

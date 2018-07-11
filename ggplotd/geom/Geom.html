@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>Geom</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/geom.html>geom</a>.</small><span class="highlight">Geom</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/geom.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/geom.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/geom.html">geom</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public struct Geom
+</code></pre>
+<div class="section "><p>Hold the data needed to draw to a plot context
+</p>
+
+
+</div>
+</div><a class="anchor" id="this"></a><div class="symbol"><div class="description"><pre><code>public this(T)(in T tup)
+</code></pre>
+<div class="section "><p>Construct from a tuple
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="drawFunction"></a><div class="symbol"><div class="description"><pre><code>alias drawFunction = cairo.Context delegate(
+    cairo.Context context, 
+    in <a href="ggplotd/guide/GuideToDoubleFunction.html">GuideToDoubleFunction</a> xFunc, 
+    in <a href="ggplotd/guide/GuideToDoubleFunction.html">GuideToDoubleFunction</a> yFunc, 
+    in <a href="ggplotd/guide/GuideToColourFunction.html">GuideToColourFunction</a> cFunc, 
+    in <a href="ggplotd/guide/GuideToDoubleFunction.html">GuideToDoubleFunction</a> sFunc)
+</code></pre>
+<div class="section "><p>Delegate that takes a context and draws to it
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="draw"></a><div class="symbol"><div class="description"><pre><code>public Nullable!<a href="ggplotd/geom/Geom.html#drawFunction">drawFunction</a> draw
+</code></pre>
+<div class="section "><p>Function to draw to a cairo context
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="mask"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">bool</a> mask
+</code></pre>
+<div class="section "><p>Whether to mask/prevent drawing outside plotting area
+</p>
+
+
+</div>
+</div></div><div class="section members"><h2>Aliases</h2><table><tr><td><a href="ggplotd/geom/Geom.html#drawFunction">drawFunction</a></td><td><pre><code>cairo.Context delegate(
+    cairo.Context context, 
+    in <a href="ggplotd/guide/GuideToDoubleFunction.html">GuideToDoubleFunction</a> xFunc, 
+    in <a href="ggplotd/guide/GuideToDoubleFunction.html">GuideToDoubleFunction</a> yFunc, 
+    in <a href="ggplotd/guide/GuideToColourFunction.html">GuideToColourFunction</a> cFunc, 
+    in <a href="ggplotd/guide/GuideToDoubleFunction.html">GuideToDoubleFunction</a> sFunc)
+</code></pre>
+</td><td><p>Delegate that takes a context and draws to it
+</p>
+</td></tr></table><h2>Variables</h2><table><tr><td><a href="ggplotd/geom/Geom.html#draw">draw</a></td><td><pre><code>Nullable!<a href="ggplotd/geom/Geom.html#drawFunction">drawFunction</a>
+</code></pre>
+</td><td><p>Function to draw to a cairo context
+</p>
+</td></tr><tr><td><a href="ggplotd/geom/Geom.html#mask">mask</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">bool</a>
+</code></pre>
+</td><td><p>Whether to mask/prevent drawing outside plotting area
+</p>
+</td></tr></table><h2>Functions</h2><table><tr><td><a href="ggplotd/geom/Geom.html#this">this</a></td><td></td><td><p>Construct from a tuple
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

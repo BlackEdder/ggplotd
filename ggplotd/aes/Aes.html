@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>Aes</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/aes.html>aes</a>.</small><span class="highlight">Aes</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/aes.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/aes.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li><span class=" selected">ggplotd.<a href="ggplotd/aes.html">aes</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public template Aes(Specs...)
+</code></pre>
+<div class="section "><p>Aes is used to store and access data for plotting
+</p>
+
+
+</div>
+<div class="section"><p>Aes is an InputRange, with named Tuples as the ElementType. The names
+    refer to certain fields, such as x, y, colour etc.
+</p>
+<pre class="prettyprint"><code>The fields commonly used are data fields, such as "x" and "y". Which data
+fields are required depends on the geom function being called. 
+
+Other common fields: 
+&lt;ul&gt;&lt;li&gt;"label": Text labels (string)&lt;/li&gt;
+    &lt;li&gt;"colour": Identifier for the colour. In general data points with different colour ids get different colours. This can be almost any type. You can also specify the colour by name or cairo.Color type if you want to specify an exact colour (any type that isNumeric, cairo.Color.<a href="ggplotd/colourspace.html#RGB">RGB</a>(A), or can be converted to string)&lt;/li&gt;
+    &lt;li&gt;"size": Gives the relative size of points/lineWidth etc.&lt;/li&gt;
+    &lt;li&gt;"angle": Angle of printed labels in radians (double)&lt;/li&gt;
+    &lt;li&gt;"alpha": Alpha value of the drawn object (double)&lt;/li&gt;
+    &lt;li&gt;"mask": Mask the area outside the axes. Prevents you from drawing outside of the area (bool)&lt;/li&gt;
+    &lt;li&gt;"fill": Whether to fill the object/holds the alpha value to fill with (double).&lt;/li&gt;&lt;/ul&gt;
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<div class="section ">Basic Aes usage
+
+</div>
+<pre><code>auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(double[], "x", double[], "y", string[], "colour")([0.0, 1],
+    [2, 1.0], ["white", "white2"]);
+
+<a href="ggplotd/aes.html#aes">aes</a>.popFront;
+assertEqual(<a href="ggplotd/aes.html#aes">aes</a>.front.y, 1);
+assertEqual(<a href="ggplotd/aes.html#aes">aes</a>.front.colour, "white2");
+
+auto aes2 = <a href="ggplotd/aes/Aes.html">Aes</a>!(double[], "x", double[], "y")([0.0, 1], [2.0, 1]);
+assertEqual(aes2.front.y, 2);
+
+import std.range : repeat;
+
+auto xs = repeat(0);
+auto aes3 = <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(xs), "x", double[], "y")(xs, [2.0, 1]);
+
+assertEqual(aes3.front.x, 0);
+aes3.popFront;
+aes3.popFront;
+assertEqual(aes3.empty, true);
+
+</code></pre>
+
+</div>
+</div></div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

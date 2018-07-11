@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css"/>
+<script src="../highlight.pack.js"></script>
+<title>ggplotd.geom</title>
+<base href="../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.geom</small>
+</div>
+<div class="sidebar">
+<a href="ggplotd/geom.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/geom.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/geom.html">geom</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><a class="anchor" id="geomRectangle"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomRectangle">geomRectangle</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw rectangle centered at given x,y location
+</p>
+
+
+</div>
+<div class="section"><p>Aside from x and y also width and height are required.
+If the type of width is of type Pixel (see aes.d) then dimensions are assumed to be in Pixel (not user coordinates).
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomEllipse"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomEllipse">geomEllipse</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw ellipse centered at given x,y location
+</p>
+
+
+</div>
+<div class="section"><p>Aside from x and y also width and height are required.
+If the type of width is of type Pixel (see aes.d) then dimensions are assumed to be in Pixel (not user coordinates).
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomTriangle"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomTriangle">geomTriangle</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw triangle centered at given x,y location
+</p>
+
+
+</div>
+<div class="section"><p>Aside from x and y also width and height are required.
+If the type of width is of type Pixel (see aes.d) then dimensions are assumed to be in Pixel (not user coordinates).
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomDiamond"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomDiamond">geomDiamond</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw diamond centered at given x,y location
+</p>
+
+
+</div>
+<div class="section"><p>Aside from x and y also width and height are required.
+If the type of width is of type Pixel (see aes.d) then dimensions are assumed to be in Pixel (not user coordinates).
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomPoint"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomPoint">geomPoint</a>(AES)(AES aesRange)
+</code></pre>
+<div class="section "><p>Create points from the data
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(double[], "x", double[], "y")([1.0], [2.0]);
+auto gl = <a href="ggplotd/geom.html#geomPoint">geomPoint</a>(<a href="ggplotd/aes.html#aes">aes</a>);
+gl.popFront;
+assert(gl.empty);
+
+</code></pre>
+
+</div>
+</div></div><a class="anchor" id="geomHist"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomHist">geomHist</a>(AES)(
+    AES aes, 
+    size_t noBins = 0)
+</code></pre>
+<div class="section "><p>Draw histograms based on the x coordinates of the data
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomHist2D"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>(AES)(
+    AES aes, 
+    size_t noBinsX = 0, 
+    size_t noBinsY = 0)
+</code></pre>
+<div class="section "><p>Draw histograms based on the x and y coordinates of the data
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+  <pre><code>    /// http://blackedder.github.io/ggplotd/images/hist2D.svg
+     import std.array : array;
+    import std.algorithm : map;
+    import std.conv : to;
+    import std.range : repeat, iota;
+    import std.random : uniform;
+
+    import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes/Aes.html">Aes</a>;
+    import <a href="ggplotd/colour.html">ggplotd.colour</a> : <a href="ggplotd/colour.html#colourGradient">colourGradient</a>;
+    import <a href="ggplotd/colourspace.html">ggplotd.colourspace</a> : <a href="ggplotd/colourspace.html#XYZ">XYZ</a>;
+    import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>;
+    import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>;
+
+    auto xs = iota(0,500,1).map!((x) => uniform(0.0,5)+uniform(0.0,5))
+        .array;
+    auto ys = iota(0,500,1).map!((y) => uniform(0.0,5)+uniform(0.0,5))
+        .array;
+    auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(xs), "x", typeof(ys), "y")( xs, ys);
+    auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>( <a href="ggplotd/aes.html#aes">aes</a> ) );
+    // Use a different colour scheme
+    gg.put( <a href="ggplotd/colour.html#colourGradient">colourGradient</a>!<a href="ggplotd/colourspace.html#XYZ">XYZ</a>( "white-cornflowerBlue-crimson" ) );
+
+    gg.save( "hist2D.svg" );
+ </code></pre>
+
+</div>
+</div></div><a class="anchor" id="geomHist3D"></a><div class="symbol"><div class="description"><pre><code>alias geomHist3D = <a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>
+</code></pre>
+<div class="section"><h2>Deprecated</h2>
+<p> superseded by geomHist2D
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomAxis"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomAxis">geomAxis</a>(AES)(
+    AES aesRaw, 
+    <a href="http://dlang.org/type.html#basic-data-types">double</a> tickLength, 
+    string label)
+</code></pre>
+<div class="section "><p>Draw axis, first and last location are start/finish
+others are ticks (perpendicular)
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="limits"></a><div class="symbol"><div class="description"><pre><code>private auto <a href="ggplotd/geom.html#limits">limits</a>(RANGE)(
+    RANGE range, 
+    <a href="http://dlang.org/type.html#basic-data-types">double</a>[] alphas)
+</code></pre>
+<div class="section "><p>Return the limits indicated with different alphas
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomBox"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomBox">geomBox</a>(AES)(AES aesRange)
+</code></pre>
+<div class="section "><p>Draw a boxplot. The "x" data is used. If labels are given then the data is grouped by the label
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>import std.array : array;
+import std.algorithm : map;
+import std.range : repeat, iota, chain, zip;
+import std.random : uniform;
+auto xs = iota(0,50,1).map!((x) => uniform(0.0,5)+uniform(0.0,5)).array;
+auto cols = "a".repeat(25).chain("b".repeat(25)).array;
+auto aesRange = zip(xs, cols)
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "colour", "fill", "label")(a[0], a[1], 0.45, a[1]));
+auto gb = <a href="ggplotd/geom.html#geomBox">geomBox</a>( aesRange );
+assertEqual( gb.front.xStore.min(), -0.4 );
+
+</code></pre>
+
+</div>
+</div></div><a class="anchor" id="geomPolygon"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomPolygon">geomPolygon</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw a polygon 
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="geomDensity"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomDensity">geomDensity</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw kernel density based on the x coordinates of the data
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+  <pre><code>    /// http://blackedder.github.io/ggplotd/images/filled_density.svg
+    import std.array : array;
+    import std.algorithm : map;
+    import std.range : repeat, iota, chain;
+    import std.random : uniform;
+
+    import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes/Aes.html">Aes</a>;
+    import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomDensity">geomDensity</a>;
+    import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>;
+    import <a href="ggplotd/legend.html">ggplotd.legend</a> : <a href="ggplotd/legend.html#discreteLegend">discreteLegend</a>;
+    auto xs = iota(0,50,1).map!((x) => uniform(0.0,5)+uniform(0.0,5)).array;
+    auto cols = "a".repeat(25).chain("b".repeat(25));
+    auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(xs), "x", typeof(cols), "colour", 
+        double[], "fill" )( 
+            xs, cols, 0.45.repeat(xs.length).array);
+    auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/geom.html#geomDensity">geomDensity</a>( <a href="ggplotd/aes.html#aes">aes</a> ) );
+    gg.put(<a href="ggplotd/legend.html#discreteLegend">discreteLegend</a>);
+    gg.save( "filled_density.svg" );
+ </code></pre>
+
+</div>
+</div></div><a class="anchor" id="geomDensity2D"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/geom.html#geomDensity2D">geomDensity2D</a>(AES)(AES aes)
+</code></pre>
+<div class="section "><p>Draw kernel density based on the x and y coordinates of the data
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+  <pre><code>    /// http://blackedder.github.io/ggplotd/images/density2D.png
+    import std.array : array;
+    import std.algorithm : map;
+    import std.conv : to;
+    import std.range : repeat, iota;
+    import std.random : uniform;
+
+    import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes/Aes.html">Aes</a>;
+    import <a href="ggplotd/colour.html">ggplotd.colour</a> : <a href="ggplotd/colour.html#colourGradient">colourGradient</a>;
+    import <a href="ggplotd/colourspace.html">ggplotd.colourspace</a> : <a href="ggplotd/colourspace.html#XYZ">XYZ</a>;
+    import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomDensity2D">geomDensity2D</a>;
+    import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>;
+    import <a href="ggplotd/legend.html">ggplotd.legend</a> : <a href="ggplotd/legend.html#continuousLegend">continuousLegend</a>;
+
+    auto xs = iota(0,500,1).map!((x) => uniform(0.0,5)+uniform(0.0,5))
+        .array;
+    auto ys = iota(0,500,1).map!((y) => uniform(0.5,1.5)+uniform(0.5,1.5))
+        .array;
+    auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(xs), "x", typeof(ys), "y")( xs, ys);
+    auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/geom.html#geomDensity2D">geomDensity2D</a>( <a href="ggplotd/aes.html#aes">aes</a> ) );
+    // Use a different colour scheme
+    gg.put( <a href="ggplotd/colour.html#colourGradient">colourGradient</a>!<a href="ggplotd/colourspace.html#XYZ">XYZ</a>( "white-cornflowerBlue-crimson" ) );
+    gg.put(<a href="ggplotd/legend.html#continuousLegend">continuousLegend</a>);
+
+    gg.save( "density2D.png" );
+ </code></pre>
+
+</div>
+</div></div><div class="description"></div><div class="section members"><h2>Aliases</h2><table><tr><td><a href="ggplotd/geom.html#geomHist3D">geomHist3D</a></td><td><pre><code><a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>
+</code></pre>
+</td><td></td></tr></table><h2>Functions</h2><table><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomRectangle">geomRectangle</a><span class="extrainfo"></span></td><td></td><td><p>Draw rectangle centered at given x,y location
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomEllipse">geomEllipse</a><span class="extrainfo"></span></td><td></td><td><p>Draw ellipse centered at given x,y location
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomTriangle">geomTriangle</a><span class="extrainfo"></span></td><td></td><td><p>Draw triangle centered at given x,y location
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomDiamond">geomDiamond</a><span class="extrainfo"></span></td><td></td><td><p>Draw diamond centered at given x,y location
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomPoint">geomPoint</a><span class="extrainfo"></span></td><td></td><td><p>Create points from the data
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomHist">geomHist</a><span class="extrainfo"></span></td><td></td><td><p>Draw histograms based on the x coordinates of the data
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomHist2D">geomHist2D</a><span class="extrainfo"></span></td><td></td><td><p>Draw histograms based on the x and y coordinates of the data
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomAxis">geomAxis</a><span class="extrainfo"></span></td><td></td><td><p>Draw axis, first and last location are start/finish
+others are ticks (perpendicular)
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-private">private</span>, <span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#limits">limits</a><span class="extrainfo"></span></td><td></td><td><p>Return the limits indicated with different alphas
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomBox">geomBox</a><span class="extrainfo"></span></td><td></td><td><p>Draw a boxplot. The "x" data is used. If labels are given then the data is grouped by the label
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomPolygon">geomPolygon</a><span class="extrainfo"></span></td><td></td><td><p>Draw a polygon 
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomDensity">geomDensity</a><span class="extrainfo"></span></td><td></td><td><p>Draw kernel density based on the x coordinates of the data
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/geom.html#geomDensity2D">geomDensity2D</a><span class="extrainfo"></span></td><td></td><td><p>Draw kernel density based on the x and y coordinates of the data
+</p>
+</td></tr></table><h2>Structs</h2><table><tr><td><a href="ggplotd/geom/Geom.html">Geom</a></td><td></td><td><p>Hold the data needed to draw to a plot context
+</p>
+</td></tr></table><h2>Templates</h2><table><tr><td><a href="ggplotd/geom/geomShape.html">geomShape</a></td><td></td><td><p>General function for drawing geomShapes
+</p>
+</td></tr><tr><td><a href="ggplotd/geom/geomType.html">geomType</a></td><td></td><td><p>Draw any type of geom
+</p>
+</td></tr><tr><td><a href="ggplotd/geom/geomLine.html">geomLine</a></td><td></td><td><p>Create lines from data 
+</p>
+</td></tr><tr><td><a href="ggplotd/geom/geomLabel.html">geomLabel</a></td><td></td><td><p>Draw Label at given x and y position
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

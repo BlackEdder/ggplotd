@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css"/>
+<script src="../highlight.pack.js"></script>
+<title>ggplotd.aes</title>
+<base href="../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.aes</small>
+</div>
+<div class="sidebar">
+<a href="ggplotd/aes.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/aes.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li><span class=" selected">ggplotd.<a href="ggplotd/aes.html">aes</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><a class="anchor" id="aes"></a><div class="symbol"><div class="description"><pre><code>alias aes = tuple
+</code></pre>
+<div class="section "><p>Map data fields to "aesthetic" fields understood by the ggplotd geom functions
+</p>
+
+
+</div>
+<div class="section"><p>The most commonly used aesthetic fields in ggplotd are "x" and "y". Which further data
+    fields are used/required depends on the geom function being called. 
+</p>
+<pre class="prettyprint"><code>Other common fields: 
+&lt;ul&gt;&lt;li&gt;"colour": Identifier for the colour. In general data points with different colour ids get different colours. This can be almost any type. You can also specify the colour by name or cairo.Color type if you want to specify an exact colour (any type that isNumeric, cairo.Color.<a href="ggplotd/colourspace.html#RGB">RGB</a>(A), or can be converted to string)&lt;/li&gt;
+    &lt;li&gt;"size": Gives the relative size of points/lineWidth etc.&lt;/li&gt;
+    &lt;li&gt;"label": Text labels (string)&lt;/li&gt;
+    &lt;li&gt;"angle": Angle of printed labels in radians (double)&lt;/li&gt;
+    &lt;li&gt;"alpha": Alpha value of the drawn object (double)&lt;/li&gt;
+    &lt;li&gt;"mask": Mask the area outside the axes. Prevents you from drawing outside of the area (bool)&lt;/li&gt;
+    &lt;li&gt;"fill": Whether to fill the object/holds the alpha value to fill with (double).&lt;/li&gt;&lt;/ul&gt;
+</code></pre><pre class="prettyprint"><code>In practice <a href="ggplotd/aes.html#aes">aes</a> is an alias for std.typecons.tuple.
+</code></pre>
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+<pre><code>struct Diamond 
+{
+    string clarity = "SI2";
+    double carat = 0.23;
+    double price = 326;
+}
+
+Diamond diamond;
+
+auto mapped = <a href="ggplotd/aes.html#aes">aes</a>!("colour", "x", "y")(diamond.clarity, diamond.carat, diamond.price);
+assert(mapped.colour == "SI2");
+assert(mapped.x == 0.23);
+assert(mapped.y == 326);</code></pre>
+
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+<pre><code>import std.typecons : Tuple;
+// <a href="ggplotd/aes.html#aes">aes</a> returns a named tuple
+assert(<a href="ggplotd/aes.html#aes">aes</a>!("x", "y")(1.0, 2.0) == Tuple!(double, "x", double, "y")(1.0, 2.0));</code></pre>
+ 
+
+</div>
+</div></div><a class="anchor" id="DefaultValues"></a><div class="symbol"><div class="description"><pre><code>public static auto auto DefaultValues
+</code></pre>
+<div class="section "><p>Default values for most settings
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="fieldWithDefault"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/aes.html#fieldWithDefault">fieldWithDefault</a>(alias field, AES, T)(
+    AES aes, 
+    T theDefault)
+</code></pre>
+<div class="section "><p>Returns field if it exists, otherwise uses the passed default
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="mergeRange"></a><div class="symbol"><div class="description"><pre><code>alias mergeRange = ggplotd.range.<a href="ggplotd/range.html#mergeRange">mergeRange</a>
+</code></pre>
+<div class="section"><h2>Deprecated</h2>
+<p> Moved to ggplotd.range;
+</p>
+
+
+</div>
+</div></div><div class="description"></div><div class="section members"><h2>Aliases</h2><table><tr><td><a href="ggplotd/aes.html#aes">aes</a></td><td><pre><code>tuple
+</code></pre>
+</td><td><p>Map data fields to "aesthetic" fields understood by the ggplotd geom functions
+</p>
+</td></tr><tr><td><a href="ggplotd/aes.html#mergeRange">mergeRange</a></td><td><pre><code>ggplotd.range.<a href="ggplotd/range.html#mergeRange">mergeRange</a>
+</code></pre>
+</td><td></td></tr></table><h2>Variables</h2><table><tr><td><a href="ggplotd/aes.html#DefaultValues">DefaultValues</a></td><td><pre><code>auto
+</code></pre>
+</td><td><p>Default values for most settings
+</p>
+</td></tr></table><h2>Functions</h2><table><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/aes.html#fieldWithDefault">fieldWithDefault</a><span class="extrainfo"></span></td><td></td><td><p>Returns field if it exists, otherwise uses the passed default
+</p>
+</td></tr></table><h2>Structs</h2><table><tr><td><a href="ggplotd/aes/Pixel.html">Pixel</a></td><td></td><td><p>Number of pixels
+</p>
+</td></tr><tr><td><a href="ggplotd/aes/DataID.html">DataID</a></td><td></td><td><p>DataID is used to refer represent any type as a usable type
+</p>
+</td></tr></table><h2>Templates</h2><table><tr><td><a href="ggplotd/aes/Aes.html">Aes</a></td><td></td><td><p>Aes is used to store and access data for plotting
+</p>
+</td></tr><tr><td><a href="ggplotd/aes/group.html">group</a></td><td></td><td><p>Groups data by colour label etc.
+</p>
+</td></tr><tr><td><a href="ggplotd/aes/merge.html">merge</a></td><td></td><td><p>Merge two types by their members. 
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

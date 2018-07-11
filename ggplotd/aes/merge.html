@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>merge</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/aes.html>aes</a>.</small><span class="highlight">merge</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/aes.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/aes.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li><span class=" selected">ggplotd.<a href="ggplotd/aes.html">aes</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public template merge(T, U)
+</code></pre>
+<div class="section "><p>Merge two types by their members. 
+</p>
+
+
+</div>
+<div class="section"><p>If it has similar named members, then it uses the second one.
+</p>
+<p>returns a named Tuple (or Aes) with all the members and their values. 
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>struct <a href="ggplotd/bounds/Point.html">Point</a> { double x; double y; string label = "<a href="ggplotd/bounds/Point.html">Point</a>"; }
+auto pnt = <a href="ggplotd/bounds/Point.html">Point</a>( 1.0, 2.0 );
+
+auto merged = <a href="ggplotd/aes.html#DefaultValues">DefaultValues</a>.<a href="ggplotd/aes/merge.html">merge</a>( pnt );
+assertEqual( merged.x, 1.0 );
+assertEqual( merged.y, 2.0 );
+assertEqual( merged.colour, "black" );
+assertEqual( merged.label, "<a href="ggplotd/bounds/Point.html">Point</a>" );
+
+</code></pre>
+
+</div>
+</div></div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

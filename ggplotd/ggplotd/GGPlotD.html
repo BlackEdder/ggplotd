@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>GGPlotD</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/ggplotd.html>ggplotd</a>.</small><span class="highlight">GGPlotD</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/ggplotd.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/ggplotd.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public struct GGPlotD
+</code></pre>
+<div class="section "><p>GGPlotD contains the needed information to create a plot
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>import std.range : zip;
+import std.algorithm : map;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom/geomLine.html">geomLine</a>;
+import <a href="ggplotd/scale.html">ggplotd.scale</a> : <a href="ggplotd/ggplotd/GGPlotD.html#scale">scale</a>;
+auto gg = zip(["a", "b", "c", "b"], ["x", "y", "y", "x"], ["b", "b", "b", "b"])
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "colour")(a[0], a[1], a[2]))
+    .<a href="ggplotd/geom/geomLine.html">geomLine</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+gg + <a href="ggplotd/ggplotd/GGPlotD.html#scale">scale</a>();
+gg.<a href="ggplotd/ggplotd/GGPlotD.html#save">save</a>( "test6.png");
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>// http://blackedder.github.io/ggplotd/images/noise.png
+import std.array : array;
+import std.math : sqrt;
+import std.algorithm : map;
+import std.range : zip, iota;
+import std.random : uniform;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom/geomLine.html">geomLine</a>, <a href="ggplotd/geom.html#geomPoint">geomPoint</a>;
+// Generate some noisy data with reducing <a href="ggplotd/bounds.html#width">width</a>
+auto f = (double x) { return x/(1+x); };
+auto <a href="ggplotd/bounds.html#width">width</a> = (double x) { return sqrt(0.1/(1+x)); };
+auto xs = iota( 0, 10, 0.1 ).array;
+
+auto ysfit = xs.map!((x) => f(x));
+auto ysnoise = xs.map!((x) => f(x) + uniform(-<a href="ggplotd/bounds.html#width">width</a>(x),<a href="ggplotd/bounds.html#width">width</a>(x))).array;
+
+auto gg = xs.zip(ysnoise)
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "colour")(a[0], a[1], "a"))
+    .<a href="ggplotd/geom.html#geomPoint">geomPoint</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+
+gg = xs.zip(ysfit).map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y")(a[0], a[1])).<a href="ggplotd/geom/geomLine.html">geomLine</a>.<a href="ggplotd/ggplotd.html#putIn">putIn</a>(gg);
+
+//  
+auto ys2fit = xs.map!((x) => 1-f(x));
+auto ys2noise = xs.map!((x) => 1-f(x) + uniform(-<a href="ggplotd/bounds.html#width">width</a>(x),<a href="ggplotd/bounds.html#width">width</a>(x))).array;
+
+gg = xs.zip(ys2fit).map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y")(a[0], a[1]))
+    .<a href="ggplotd/geom/geomLine.html">geomLine</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(gg);
+gg = xs.zip(ys2noise)
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "colour")(a[0], a[1], "b"))
+    .<a href="ggplotd/geom.html#geomPoint">geomPoint</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(gg);
+
+gg.<a href="ggplotd/ggplotd/GGPlotD.html#save">save</a>( "noise.png" );
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>// http://blackedder.github.io/ggplotd/images/hist.png
+import std.array : array;
+import std.algorithm : map;
+import std.range : iota, zip;
+import std.random : uniform;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomHist">geomHist</a>, <a href="ggplotd/geom.html#geomPoint">geomPoint</a>;
+import <a href="ggplotd/range.html">ggplotd.range</a> : <a href="ggplotd/range.html#mergeRange">mergeRange</a>;
+
+auto xs = iota(0,25,1).map!((x) => uniform(0.0,5)+uniform(0.0,5)).array;
+auto gg = xs 
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x")(a))
+    .<a href="ggplotd/geom.html#geomHist">geomHist</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+
+gg = xs.map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y")(a, 0.0))
+    .<a href="ggplotd/geom.html#geomPoint">geomPoint</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(gg);
+
+gg.<a href="ggplotd/ggplotd/GGPlotD.html#save">save</a>( "hist.png" );
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<div class="section ">Setting background colour
+
+</div>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/<a href="ggplotd/theme.html#background">background</a>.svg
+import std.range : zip;
+import std.algorithm : map;
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes.html#aes">aes</a>;
+import <a href="ggplotd/theme.html">ggplotd.theme</a> : <a href="ggplotd/theme.html#background">background</a>;
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomPoint">geomPoint</a>;
+
+// http://blackedder.github.io/ggplotd/images/polygon.png
+auto gg = zip([1, 0, 0.0], [1, 1, 0.0], [1, 0.1, 0])
+    .map!((a) => <a href="ggplotd/aes.html#aes">aes</a>!("x", "y", "colour")(a[0], a[1], a[2]))
+    .<a href="ggplotd/geom.html#geomPoint">geomPoint</a>
+    .<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+gg.<a href="ggplotd/ggplotd/GGPlotD.html#put">put</a>(<a href="ggplotd/theme.html#background">background</a>(<a href="ggplotd/colourspace.html#RGBA">RGBA</a>(0.7, 0.7, 0.7, 1)));
+gg.<a href="ggplotd/ggplotd/GGPlotD.html#save">save</a>( "<a href="ggplotd/theme.html#background">background</a>.svg" );
+
+</code></pre>
+
+</div>
+<div class="section "><h2>Example</h2>
+<div class="section ">Other data type
+
+</div>
+<pre><code>/// http://blackedder.github.io/ggplotd/images/data.png
+import std.array : array;
+import std.math : sqrt;
+import std.algorithm : map;
+import std.range : iota;
+import std.random : uniform;
+
+import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom.html#geomPoint">geomPoint</a>;
+
+struct <a href="ggplotd/bounds/Point.html">Point</a> { double x; double y; }
+// Generate some noisy data with reducing <a href="ggplotd/bounds.html#width">width</a>
+auto f = (double x) { return x/(1+x); };
+auto <a href="ggplotd/bounds.html#width">width</a> = (double x) { return sqrt(0.1/(1+x)); };
+immutable xs = iota( 0, 10, 0.1 ).array;
+
+auto points = xs.map!((x) => <a href="ggplotd/bounds/Point.html">Point</a>(x,
+    f(x) + uniform(-<a href="ggplotd/bounds.html#width">width</a>(x),<a href="ggplotd/bounds.html#width">width</a>(x))));
+
+auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().<a href="ggplotd/ggplotd/GGPlotD.html#put">put</a>( <a href="ggplotd/geom.html#geomPoint">geomPoint</a>( points ) );
+
+gg.<a href="ggplotd/ggplotd/GGPlotD.html#save">save</a>( "data.png" );
+
+</code></pre>
+
+</div>
+</div><a class="anchor" id="drawToSurface"></a><div class="symbol"><div class="description"><pre><code>public ref cairo.Surface <a href="ggplotd/ggplotd/GGPlotD.html#drawToSurface">drawToSurface</a>(
+    ref cairo.Surface surface, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> height) const
+</code></pre>
+<div class="section "><p>Draw the plot to a cairoD cairo surface.
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">surface</td><td class="paramDoc"><p>Surface object of type cairo.Surface from cairoD library, on top of which this plot is drawn.
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">width</td><td class="paramDoc"><p>Width of the given surface.
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">height</td><td class="paramDoc"><p>Height of the given surface.
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Returns</h2>
+<pre class="prettyprint"><code>Resulting surface of the same type as input surface, with this plot drawn on top of it.
+</code></pre>
+
+</div>
+</div></div><a class="anchor" id="drawToSurface"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/ggplotd/GGPlotD.html#drawToSurface">drawToSurface</a>(
+    ref gtkdSurface.Surface surface, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> height) const
+</code></pre>
+<div class="section "><p>Draw the plot to a GtkD cairo surface.
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">surface</td><td class="paramDoc"><p>Surface object of type cairo.Surface from GtkD library, on top of which this plot is drawn.
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">width</td><td class="paramDoc"><p>Width of the given surface.
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">height</td><td class="paramDoc"><p>Height of the given surface.
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Returns</h2>
+<pre class="prettyprint"><code>Resulting surface of the same type as input surface, with this plot drawn on top of it.
+</code></pre>
+
+</div>
+</div></div><a class="anchor" id="save"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">void</a> <a href="ggplotd/ggplotd/GGPlotD.html#save">save</a>(
+    string fname, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width = 470, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> height = 470) const
+</code></pre>
+<div class="section "><p>save the plot to a file
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="opBinary"></a><div class="symbol"><div class="description"><pre><code>public ref <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a> <a href="ggplotd/ggplotd/GGPlotD.html#opBinary">opBinary</a>(string op, T)(T rhs) 
+if(op == "+")
+</code></pre>
+<div class="section "><p>Using + to extend the plot for compatibility to ggplot2 in R
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="put"></a><div class="symbol"><div class="description"><pre><code>public ref <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a> <a href="ggplotd/ggplotd/GGPlotD.html#put">put</a>(T)(T rhs)
+</code></pre>
+<div class="section "><p>put/add to the plot
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="scale"></a><div class="symbol"><div class="description"><pre><code>public ScaleType <a href="ggplotd/ggplotd/GGPlotD.html#scale">scale</a>() const
+</code></pre>
+<div class="section "><p>Active scale
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="colourGradient"></a><div class="symbol"><div class="description"><pre><code>public <a href="ggplotd/colour.html#ColourGradientFunction">ColourGradientFunction</a> <a href="ggplotd/ggplotd/GGPlotD.html#colourGradient">colourGradient</a>() const
+</code></pre>
+<div class="section "><p>Active colourGradient
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="margins"></a><div class="symbol"><div class="description"><pre><code>public <a href="ggplotd/ggplotd/Margins.html">Margins</a> <a href="ggplotd/ggplotd/GGPlotD.html#margins">margins</a>(
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> height) const
+</code></pre>
+<div class="section "><p>Active margins
+</p>
+
+
+</div>
+</div></div><div class="section members"><h2>Functions</h2><table><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-ref">ref</span></span></span><a href="ggplotd/ggplotd/GGPlotD.html#drawToSurface">drawToSurface</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>Draw the plot to a cairoD cairo surface.
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/ggplotd/GGPlotD.html#drawToSurface">drawToSurface</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>Draw the plot to a GtkD cairo surface.
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/GGPlotD.html#save">save</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>save the plot to a file
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-ref">ref</span></span></span><a href="ggplotd/ggplotd/GGPlotD.html#opBinary">opBinary</a><span class="extrainfo"></span></td><td></td><td><p>Using + to extend the plot for compatibility to ggplot2 in R
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-ref">ref</span></span></span><a href="ggplotd/ggplotd/GGPlotD.html#put">put</a><span class="extrainfo"></span></td><td></td><td><p>put/add to the plot
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/GGPlotD.html#scale">scale</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>Active scale
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/GGPlotD.html#colourGradient">colourGradient</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>Active colourGradient
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/GGPlotD.html#margins">margins</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>Active margins
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

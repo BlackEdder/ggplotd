@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css"/>
+<script src="../highlight.pack.js"></script>
+<title>ggplotd.stat</title>
+<base href="../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.stat</small>
+</div>
+<div class="sidebar">
+<a href="ggplotd/stat.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/stat.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/stat.html">stat</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><a class="anchor" id="statFunction"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/stat.html#statFunction">statFunction</a>(FUNC, T)(
+    FUNC func, 
+    T min, 
+    T max, 
+    size_t precision = 50) 
+if(isCallable!FUNC)
+</code></pre>
+<div class="section "><p>Create Aes based on a function
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">func</td><td class="paramDoc"><p>Function
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">min</td><td class="paramDoc"><p>x coordinate to start from
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">max</td><td class="paramDoc"><p>x coordinate to end at
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">precision</td><td class="paramDoc"><p>Number of points to calculate
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Examples</h2>
+
+  <pre><code>    /// http://blackedder.github.io/ggplotd/images/function.png
+    import std.random : uniform;
+    import std.typecons : Tuple; import <a href="ggplotd/stat.html">ggplotd.stat</a> : <a href="ggplotd/stat.html#statFunction">statFunction</a>; 
+    import <a href="ggplotd/ggplotd.html">ggplotd.ggplotd</a> : <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>; 
+    import <a href="ggplotd/geom.html">ggplotd.geom</a> : <a href="ggplotd/geom/geomLine.html">geomLine</a>, <a href="ggplotd/geom.html#geomPoint">geomPoint</a>;
+    import <a href="ggplotd/range.html">ggplotd.range</a> : <a href="ggplotd/range.html#mergeRange">mergeRange</a>;
+
+    auto f = (double x) { return x / (1 + x); };
+
+    auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/stat.html#statFunction">statFunction</a>(f, 0.0, 10);
+    auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put(<a href="ggplotd/geom/geomLine.html">geomLine</a>(<a href="ggplotd/aes.html#aes">aes</a>));
+
+    // Generate some noisy points 
+    auto f2 = (double x) { return x / (1 + x) * uniform(0.75, 1.25); };
+    auto aes2 = f2.<a href="ggplotd/stat.html#statFunction">statFunction</a>(0.0, 10, 25);
+
+    // Show points in different colour
+    auto withColour = Tuple!(string, "colour")("aquamarine").<a href="ggplotd/range.html#mergeRange">mergeRange</a>(aes2);
+    gg = gg.put(withColour.<a href="ggplotd/geom.html#geomPoint">geomPoint</a>);
+
+    gg.save("function.png");
+ </code></pre>
+
+
+</div>
+</div></div><a class="anchor" id="binID"></a><div class="symbol"><div class="description"><pre><code>private auto <a href="ggplotd/stat.html#binID">binID</a>(T)(
+    T value, 
+    T min, 
+    T max, 
+    T width)
+</code></pre>
+<div class="section "><p>Binning
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="statHist"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/stat.html#statHist">statHist</a>(AES)(
+    AES aesRaw, 
+    size_t noBins = 0)
+</code></pre>
+<div class="section "><p>Create Aes that specifies the bins to draw an histogram 
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">aesRaw</td><td class="paramDoc"><p>Data that the histogram will be based on 
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">noBins</td><td class="paramDoc"><p>Optional number of bins. On a value of 0 the number of bins will be chosen automatically.
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Returns</h2>
+<p> Range that holds rectangles representing different bins
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="statHist2D"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/stat.html#statHist2D">statHist2D</a>(AES)(
+    AES aesRange, 
+    size_t noBinsX = 0, 
+    size_t noBinsY = 0)
+</code></pre>
+<div class="section "><p>Create Aes that specifies the bins to draw an histogram 
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">aesRange</td><td class="paramDoc"><p>Data that the histogram will be based on 
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">noBinsX</td><td class="paramDoc"><p>Optional number of bins for x axis. On a value of 0 the number of bins will be chosen automatically.
+</p>
+</td></tr>
+<tr class="param"><td class="paramName">noBinsY</td><td class="paramDoc"><p>Optional number of bins for y axis. On a value of 0 the number of bins will be chosen automatically.
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Returns</h2>
+<p> Range that holds rectangles representing different bins
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="statDensity"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/stat.html#statDensity">statDensity</a>(AES)(AES aesRange)
+</code></pre>
+<div class="section "><p>Calculate kernel density for given data
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">aesRange</td><td class="paramDoc"><p>Data that the histogram will be based on 
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Returns</h2>
+<p> InputRange that holds x and y coordinates for the kernel
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>import std.stdio : writeln;
+import std.algorithm : map;
+import std.array : array;
+import std.random : uniform;
+import std.range : chain, iota, repeat, walkLength;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes/Aes.html">Aes</a>;
+
+auto xs = iota(0,100,1)
+    .map!((i)=>uniform(0,0.75)+uniform(0.25,1))
+    .array;
+
+auto dens = <a href="ggplotd/stat.html#statDensity">statDensity</a>( <a href="ggplotd/aes/Aes.html">Aes</a>!( typeof(xs), "x")( xs ) );
+auto dim = dens.walkLength;
+assertGreaterThan( dim, 1 );
+
+// Test that grouping leads to longer (twice as long) result
+auto cols = chain("a".repeat(50),"b".repeat(50) );
+auto dens2 = <a href="ggplotd/stat.html#statDensity">statDensity</a>( <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(cols), "colour", typeof(xs), "x")( cols, xs ) );
+assertGreaterThan( dens2.walkLength, 1.9*dim );
+assertLessThan( dens2.walkLength, 2.1*dim );
+
+// Test that colour is passed through (merged)
+assertEqual( dens2.front.colour.length, 1 );
+
+// Test single point 
+xs = [1];
+dens = <a href="ggplotd/stat.html#statDensity">statDensity</a>( <a href="ggplotd/aes/Aes.html">Aes</a>!( typeof(xs), "x")( xs ) );
+assertEqual(dens.walkLength, 3);
+
+</code></pre>
+
+</div>
+</div></div><a class="anchor" id="statDensity2D"></a><div class="symbol"><div class="description"><pre><code>public auto <a href="ggplotd/stat.html#statDensity2D">statDensity2D</a>(AES)(AES aesRange)
+</code></pre>
+<div class="section "><p>Calculate kernel density for given x and y data
+</p>
+
+
+</div>
+<div class="section"><h2>Parameters</h2>
+<table class="params">
+<tr class="param"><td class="paramName">aesRange</td><td class="paramDoc"><p>Data that the histogram will be based on 
+</p>
+</td></tr>
+</table>
+</div>
+<div class="section"><h2>Returns</h2>
+<p> Range of ranges that holds polygons for the kernel
+</p>
+
+
+</div>
+<div class="section "><h2>Example</h2>
+<pre><code>import std.algorithm : map;
+import std.array : array;
+import std.random : uniform;
+import std.range : iota, walkLength;
+
+import <a href="ggplotd/aes.html">ggplotd.aes</a> : <a href="ggplotd/aes/Aes.html">Aes</a>;
+auto xs = iota(0,500,1).map!((x) => uniform(0.0,5)+uniform(0.0,5))
+    .array;
+auto ys = iota(0,500,1).map!((y) => uniform(1.0,1.5)+uniform(1.0,1.5))
+    .array;
+auto <a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(xs), "x", typeof(ys), "y")( xs, ys);
+
+auto sD = <a href="ggplotd/stat.html#statDensity2D">statDensity2D</a>( <a href="ggplotd/aes.html#aes">aes</a> );
+assertGreaterThan( sD.walkLength, 1150 );
+assertLessThan( sD.walkLength, 1450 );
+assertEqual( sD.front.walkLength, 3 );
+
+// One value
+xs = [1];
+ys = [2];
+<a href="ggplotd/aes.html#aes">aes</a> = <a href="ggplotd/aes/Aes.html">Aes</a>!(typeof(xs), "x", typeof(ys), "y")( xs, ys);
+
+sD = <a href="ggplotd/stat.html#statDensity2D">statDensity2D</a>( <a href="ggplotd/aes.html#aes">aes</a> );
+assertGreaterThan(sD.walkLength, 0);
+
+</code></pre>
+
+</div>
+</div></div><div class="description"></div><div class="section members"><h2>Functions</h2><table><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/stat.html#statFunction">statFunction</a><span class="extrainfo"></span></td><td></td><td><p>Create Aes based on a function
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-private">private</span>, <span class="attr-auto">auto</span></span></span><a href="ggplotd/stat.html#binID">binID</a><span class="extrainfo"></span></td><td></td><td><p>Binning
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/stat.html#statHist">statHist</a><span class="extrainfo"></span></td><td></td><td><p>Create Aes that specifies the bins to draw an histogram 
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/stat.html#statHist2D">statHist2D</a><span class="extrainfo"></span></td><td></td><td><p>Create Aes that specifies the bins to draw an histogram 
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/stat.html#statDensity">statDensity</a><span class="extrainfo"></span></td><td></td><td><p>Calculate kernel density for given data
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-auto">auto</span></span></span><a href="ggplotd/stat.html#statDensity2D">statDensity2D</a><span class="extrainfo"></span></td><td></td><td><p>Calculate kernel density for given x and y data
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>GTKWindow</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/gtk.html>gtk</a>.</small><span class="highlight">GTKWindow</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/gtk.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/gtk.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/gtk.html">gtk</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public class GTKWindow
+</code></pre>
+<div class="section "><p>Helper class to open a GTK window and draw to it
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+<pre><code>// Code to create the <a href="ggplotd/aes.html#aes">aes</a> here
+// ...
+
+// Start gtk window.
+const <a href="ggplotd/bounds.html#width">width</a> = 470;
+const <a href="ggplotd/bounds.html#height">height</a> = 470;
+auto gd = new <a href="ggplotd/gtk/GTKWindow.html">GTKWindow</a>();
+auto tid = new Thread(() { gd.<a href="ggplotd/gtk/GTKWindow.html#run">run</a>("plotcli", <a href="ggplotd/bounds.html#width">width</a>, <a href="ggplotd/bounds.html#height">height</a>); }).start();
+auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/geom.html#geomHist2D">geomHist2D</a>( <a href="ggplotd/aes.html#aes">aes</a> ) );
+gd.<a href="ggplotd/gtk/GTKWindow.html#draw">draw</a>( gg, <a href="ggplotd/bounds.html#width">width</a>, <a href="ggplotd/bounds.html#height">height</a> );
+Thread.sleep( dur!("seconds")( 2 ) ); // sleep for 5 seconds
+
+gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/geom.html#geomPoint">geomPoint</a>( <a href="ggplotd/aes.html#aes">aes</a> ) );
+gd.<a href="ggplotd/gtk/GTKWindow.html#clearWindow">clearWindow</a>();
+gd.<a href="ggplotd/gtk/GTKWindow.html#draw">draw</a>( gg, <a href="ggplotd/bounds.html#width">width</a>, <a href="ggplotd/bounds.html#height">height</a> );
+
+// Wait for gtk thread to finish (Window closed)
+tid.join();</code></pre>
+
+</div>
+</div><a class="anchor" id="draw"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">void</a> <a href="ggplotd/gtk/GTKWindow.html#draw">draw</a>(T)(
+    T gg, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> height)
+</code></pre>
+</div></div><a class="anchor" id="clearWindow"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">void</a> <a href="ggplotd/gtk/GTKWindow.html#clearWindow">clearWindow</a>()
+</code></pre>
+</div></div><a class="anchor" id="run"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">void</a> <a href="ggplotd/gtk/GTKWindow.html#run">run</a>(
+    string title, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width = 470, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> height = 470)
+</code></pre>
+<div class="section "><p>Open the window and run the mainloop. This is blocking, due to the mainloop.
+</p>
+
+
+</div>
+<div class="section"><p>It should be safe to run threaded though
+</p>
+
+
+</div>
+</div></div><div class="section members"><h2>Functions</h2><table><tr><td><a href="ggplotd/gtk/GTKWindow.html#draw">draw</a><span class="extrainfo"></span></td><td></td><td></td></tr><tr><td><a href="ggplotd/gtk/GTKWindow.html#clearWindow">clearWindow</a><span class="extrainfo"></span></td><td></td><td></td></tr><tr><td><a href="ggplotd/gtk/GTKWindow.html#run">run</a><span class="extrainfo"></span></td><td></td><td><p>Open the window and run the mainloop. This is blocking, due to the mainloop.
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

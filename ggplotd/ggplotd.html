@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css"/>
+<script src="../highlight.pack.js"></script>
+<title>ggplotd.ggplotd</title>
+<base href="../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.ggplotd</small>
+</div>
+<div class="sidebar">
+<a href="ggplotd/ggplotd.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/ggplotd.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><a class="anchor" id="TitleFunction"></a><div class="symbol"><div class="description"><pre><code>alias TitleFunction = <a href="ggplotd/ggplotd/Title.html">Title</a> delegate(<a href="ggplotd/ggplotd/Title.html">Title</a>)
+</code></pre>
+<div class="section "><p>delegate that takes a Title struct and returns a changed Title struct
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="title"></a><div class="symbol"><div class="description"><pre><code>public <a href="ggplotd/ggplotd.html#TitleFunction">TitleFunction</a> <a href="ggplotd/ggplotd.html#title">title</a>(string title)
+</code></pre>
+<div class="section "><p>Draw the title
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+<pre><code><a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/ggplotd.html#title">title</a>( "My <a href="ggplotd/ggplotd.html#title">title</a>" ) );</code></pre>
+
+</div>
+</div></div><a class="anchor" id="title"></a><div class="symbol"><div class="description"><pre><code>public <a href="ggplotd/ggplotd.html#TitleFunction">TitleFunction</a> <a href="ggplotd/ggplotd.html#title">title</a>(string[] title)
+</code></pre>
+<div class="section "><p>Draw the multiline title
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+<pre><code><a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put( <a href="ggplotd/ggplotd.html#title">title</a>( ["My <a href="ggplotd/ggplotd.html#title">title</a> line1", "line2", "line3"] ) );</code></pre>
+
+</div>
+</div></div><a class="anchor" id="drawTitle"></a><div class="symbol"><div class="description"><pre><code>private auto <a href="ggplotd/ggplotd.html#drawTitle">drawTitle</a>(
+    in <a href="ggplotd/ggplotd/Title.html">Title</a> title, 
+    ref cairo.Surface surface, 
+    in <a href="ggplotd/ggplotd/Margins.html">Margins</a> margins, 
+    <a href="http://dlang.org/type.html#basic-data-types">int</a> width)
+</code></pre>
+</div></div><a class="anchor" id="putIn"></a><div class="symbol"><div class="description"><pre><code>public ref auto <a href="ggplotd/ggplotd.html#putIn">putIn</a>(T, U)(
+    T t, 
+    U u)
+</code></pre>
+<div class="section "><p>Put an element into a plot/facets struct
+</p>
+
+
+</div>
+<div class="section"><p>This basically reverses a call to put and allows one to write more idiomatic D code where code flows from left to right instead of right to left.
+</p>
+
+
+</div>
+<div class="section"><h2>Examples</h2>
+
+<pre><code>auto gg = data.<a href="ggplotd/aes.html#aes">aes</a>.<a href="ggplotd/geom.html#geomPoint">geomPoint</a>.<a href="ggplotd/ggplotd.html#putIn">putIn</a>(<a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>());
+// instead of
+auto gg = <a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a>().put(<a href="ggplotd/geom.html#geomPoint">geomPoint</a>(<a href="ggplotd/aes.html#aes">aes</a>(data)));</code></pre>
+
+</div>
+</div></div><div class="description"></div><div class="section members"><h2>Aliases</h2><table><tr><td><a href="ggplotd/ggplotd.html#TitleFunction">TitleFunction</a></td><td><pre><code><a href="ggplotd/ggplotd/Title.html">Title</a> delegate(<a href="ggplotd/ggplotd/Title.html">Title</a>)
+</code></pre>
+</td><td><p>delegate that takes a Title struct and returns a changed Title struct
+</p>
+</td></tr></table><h2>Functions</h2><table><tr><td><a href="ggplotd/ggplotd.html#title">title</a><span class="extrainfo"></span></td><td></td><td><p>Draw the title
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd.html#title">title</a><span class="extrainfo"></span></td><td></td><td><p>Draw the multiline title
+</p>
+</td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-private">private</span>, <span class="attr-auto">auto</span></span></span><a href="ggplotd/ggplotd.html#drawTitle">drawTitle</a><span class="extrainfo"></span></td><td></td><td></td></tr><tr><td><span class="extrainfo"><span class="attribs"><span class="attr-ref">ref</span>, <span class="attr-auto">auto</span></span></span><a href="ggplotd/ggplotd.html#putIn">putIn</a><span class="extrainfo"></span></td><td></td><td><p>Put an element into a plot/facets struct
+</p>
+</td></tr></table><h2>Structs</h2><table><tr><td><a href="ggplotd/ggplotd/Title.html">Title</a></td><td></td><td><p>Currently only holds the title. In the future could also be used to store details on location etc.
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/Margins.html">Margins</a></td><td></td><td><p>Specify margins in number of pixels
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/GGPlotD.html">GGPlotD</a></td><td></td><td><p>GGPlotD contains the needed information to create a plot
+</p>
+</td></tr><tr><td><a href="ggplotd/ggplotd/Facets.html">Facets</a></td><td></td><td><p>Plot multiple (sub) plots
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

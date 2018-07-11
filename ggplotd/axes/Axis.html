@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>Axis</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/axes.html>axes</a>.</small><span class="highlight">Axis</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/axes.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/axes.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/axes.html">axes</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/bounds.html">bounds</a></li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public struct Axis
+</code></pre>
+<div class="section "><p>Struct holding details on axis
+</p>
+
+
+</div>
+</div><a class="anchor" id="this"></a><div class="symbol"><div class="description"><pre><code>public this(
+    <a href="http://dlang.org/type.html#basic-data-types">double</a> newmin, 
+    <a href="http://dlang.org/type.html#basic-data-types">double</a> newmax)
+</code></pre>
+<div class="section "><p>Creating axis giving a minimum and maximum value
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="label"></a><div class="symbol"><div class="description"><pre><code>public string label
+</code></pre>
+<div class="section "><p>Label of the axis
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="min"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> min
+</code></pre>
+<div class="section "><p>Minimum value of the axis
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="max"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> max
+</code></pre>
+<div class="section "><p>Maximum value of the axis
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="min_tick"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> min_tick
+</code></pre>
+<div class="section "><p>Location of the lowest tick
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="tick_width"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> tick_width
+</code></pre>
+<div class="section "><p>Distance between ticks
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="offset"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> offset
+</code></pre>
+<div class="section "><p>Offset of the axis
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="show"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">bool</a> show
+</code></pre>
+<div class="section "><p>Show the axis or hide it
+</p>
+
+
+</div>
+</div></div><div class="section members"><h2>Variables</h2><table><tr><td><a href="ggplotd/axes/Axis.html#label">label</a></td><td><pre><code>string
+</code></pre>
+</td><td><p>Label of the axis
+</p>
+</td></tr><tr><td><a href="ggplotd/axes/Axis.html#min">min</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>Minimum value of the axis
+</p>
+</td></tr><tr><td><a href="ggplotd/axes/Axis.html#max">max</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>Maximum value of the axis
+</p>
+</td></tr><tr><td><a href="ggplotd/axes/Axis.html#min_tick">min_tick</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>Location of the lowest tick
+</p>
+</td></tr><tr><td><a href="ggplotd/axes/Axis.html#tick_width">tick_width</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>Distance between ticks
+</p>
+</td></tr><tr><td><a href="ggplotd/axes/Axis.html#offset">offset</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>Offset of the axis
+</p>
+</td></tr><tr><td><a href="ggplotd/axes/Axis.html#show">show</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">bool</a>
+</code></pre>
+</td><td><p>Show the axis or hide it
+</p>
+</td></tr></table><h2>Functions</h2><table><tr><td><a href="ggplotd/axes/Axis.html#this">this</a></td><td></td><td><p>Creating axis giving a minimum and maximum value
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../../style.css"/>
+<script src="../../highlight.pack.js"></script>
+<title>Point</title>
+<base href="../../"/>
+<script src="search.js"></script>
+<script src="show_hide.js"></script>
+</head>
+<body>
+<div class="main">
+<div class="breadcrumbs">
+<table id="results"></table>
+<a href="index.html" class="home">⌂</a><input type="search" id="search" placeholder="Search" onkeyup="searchSubmit(this.value, event)"/>
+<small>ggplotd.<a href=ggplotd/bounds.html>bounds</a>.</small><span class="highlight">Point</span>
+</div>
+<div class="sidebar">
+<a href="ggplotd/bounds.html#hide-toc" class="hide" id="hide-toc">&#171;</a>
+<a href="ggplotd/bounds.html#show-toc" class="show" id="show-toc">&#187;</a>
+<div id="toc-id" class="toc">
+<ul><li><a href="example.html">example</a></li>
+<li><span class="package" onclick="show_hide('ggplotd');">ggplotd</span>
+<ul id="ggplotd" style='display:block'>
+<li>ggplotd.<a href="ggplotd/aes.html">aes</a></li>
+<li>ggplotd.<a href="ggplotd/algorithm.html">algorithm</a></li>
+<li>ggplotd.<a href="ggplotd/axes.html">axes</a></li>
+<li><span class=" selected">ggplotd.<a href="ggplotd/bounds.html">bounds</a></span>
+</li>
+<li>ggplotd.<a href="ggplotd/colour.html">colour</a></li>
+<li>ggplotd.<a href="ggplotd/colourspace.html">colourspace</a></li>
+<li>ggplotd.<a href="ggplotd/geom.html">geom</a></li>
+<li>ggplotd.<a href="ggplotd/geometry.html">geometry</a></li>
+<li>ggplotd.<a href="ggplotd/ggplotd.html">ggplotd</a></li>
+<li>ggplotd.<a href="ggplotd/gtk.html">gtk</a></li>
+<li>ggplotd.<a href="ggplotd/guide.html">guide</a></li>
+<li>ggplotd.<a href="ggplotd/legend.html">legend</a></li>
+<li>ggplotd.<a href="ggplotd/meta.html">meta</a></li>
+<li>ggplotd.<a href="ggplotd/range.html">range</a></li>
+<li>ggplotd.<a href="ggplotd/scale.html">scale</a></li>
+<li>ggplotd.<a href="ggplotd/stat.html">stat</a></li>
+<li>ggplotd.<a href="ggplotd/theme.html">theme</a></li>
+</ul>
+</li>
+
+</ul>
+</div></div>
+<div class="content">
+<div class="aggregate-symbol"><div class="description"><pre><code>public struct Point
+</code></pre>
+<div class="section "><p>Point with x and y value
+</p>
+
+
+</div>
+</div><a class="anchor" id="x"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> x
+</code></pre>
+<div class="section "><p>x value
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="y"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">double</a> y
+</code></pre>
+<div class="section "><p>y value
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="this"></a><div class="symbol"><div class="description"><pre><code>public this(
+    <a href="http://dlang.org/type.html#basic-data-types">double</a> my_x, 
+    <a href="http://dlang.org/type.html#basic-data-types">double</a> my_y)
+</code></pre>
+<div class="section "><p>Constructor taking x and y value
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="this"></a><div class="symbol"><div class="description"><pre><code>public this(string value)
+</code></pre>
+<div class="section "><p>Constructor taking a string holding the x and y value separated by a comma
+</p>
+
+
+</div>
+</div></div><a class="anchor" id="opEquals"></a><div class="symbol"><div class="description"><pre><code>public <a href="http://dlang.org/type.html#basic-data-types">bool</a> <a href="ggplotd/bounds/Point.html#opEquals">opEquals</a>(in <a href="ggplotd/bounds/Point.html">Point</a> point) const
+</code></pre>
+<div class="section "><p>Test whether two points are equal to each other
+</p>
+
+
+</div>
+</div></div><div class="section members"><h2>Variables</h2><table><tr><td><a href="ggplotd/bounds/Point.html#x">x</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>x value
+</p>
+</td></tr><tr><td><a href="ggplotd/bounds/Point.html#y">y</a></td><td><pre><code><a href="http://dlang.org/type.html#basic-data-types">double</a>
+</code></pre>
+</td><td><p>y value
+</p>
+</td></tr></table><h2>Functions</h2><table><tr><td><a href="ggplotd/bounds/Point.html#this">this</a></td><td></td><td><p>Constructor taking x and y value
+</p>
+</td></tr><tr><td><a href="ggplotd/bounds/Point.html#this">this</a></td><td></td><td><p>Constructor taking a string holding the x and y value separated by a comma
+</p>
+</td></tr><tr><td><a href="ggplotd/bounds/Point.html#opEquals">opEquals</a><span class="extrainfo"><span class="method-attribs"><span class="attr-const">const</span></span></span></td><td></td><td><p>Test whether two points are equal to each other
+</p>
+</td></tr></table>
+</div>
+</div><script>hljs.initHighlightingOnLoad();</script>
+
+</div>
+<footer>
+Generated with <a href="https://github.com/kiith-sa/harbored-mod">harbored-mod</a>
+</footer>
+</div>
+</body>
+</html>
