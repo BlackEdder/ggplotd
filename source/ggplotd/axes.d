@@ -207,27 +207,49 @@ unittest
     assert(tickLength(axis) == 0.08);
 }
 
-/// Convert a value to an axis label
-string toAxisLabel( double value )
-{
-    import std.math : abs, round;
+/** Print (axis) value, uses scientific notation for higher decimals
+
+TODO: Could generate code to support decimals > 3
+*/
+string decimalPrint(in double value, in uint decimals) {
+    import std.math : round;
     import std.format : format;
-    if (abs(value) > 1 && abs(value) < 100_000)
-    {
-        auto rv = round(value);
-        auto dec = abs(round((value - rv)*100));
-        if (dec == 0)
-            return format( "%s", rv );
-        else if (dec%10 == 0)
-            return format( "%s.%s", rv, dec/10);
-        else
-            return format( "%s.%s", rv, dec);
-    }
+    if (decimals == 0)
+        return format( "%.0f", value );
+    else if (decimals == 1)
+        return format( "%.1f", value );
+    else if (decimals == 2)
+        return format( "%.2f", value );
+    else if (decimals == 3)
+        return format( "%.3f", value );
+    else if (decimals == 4)
+        return format( "%.4f", value );
+    // Decimals [5,+) higher results in scientific notation, so that should be good
     return format( "%.3g", value );
 }
 
+unittest {
+    assertEqual(1.23456.decimalPrint(0), "1");
+    assertEqual(1.53456.decimalPrint(0), "2");
+    assertEqual(1.23456.decimalPrint(1), "1.2");
+    assertEqual(12.3456.decimalPrint(1), "12.3");
+    assertEqual(1.23456.decimalPrint(2), "1.23");
+    assertEqual(0.000012345.decimalPrint(5), "1.23e-05");
+}
+
+/// Convert a value to an axis label
+string toAxisLabel( double value, double tick_width)
+{
+    import std.math : floor, log10;
+    auto scale = cast(int) -floor(log10(tick_width));
+    return value.decimalPrint(scale);
+}
+
+/*
 unittest
 {
+    import std.stdio : writeln;
+    (18.08).toAxisLabel(0.01).writeln;
     assertEqual( 5.toAxisLabel, "5" );
     assertEqual( (0.5).toAxisLabel, "0.5" );
     assertEqual( (0.001234567).toAxisLabel, "0.00123" );
@@ -237,7 +259,8 @@ unittest
     assertEqual( (-2001).toAxisLabel, "-2001" );
     assertEqual( (-2001.125).toAxisLabel, "-2001.13" );
     assertEqual( (-2.301).toAxisLabel, "-2.3" );
-}
+    assertEqual( (18.08).toAxisLabel, "18.08" );
+}*/
 
 /// Calculate tick length in plot units
 auto tickLength(double plotSize, size_t deviceSize, double scalingX, double scalingY)
@@ -259,7 +282,7 @@ auto axisAes(string type, double minC, double maxC, double lvl, double scaling =
     import std.algorithm : sort, uniq, map;
     import std.array : array;
     import std.conv : to;
-    import std.range : empty, repeat, take, popFront, walkLength;
+    import std.range : empty, repeat, take, popFront, walkLength, front;
 
     import ggplotd.aes : Aes;
 
@@ -271,19 +294,47 @@ auto axisAes(string type, double minC, double maxC, double lvl, double scaling =
     if (!sortedAxisTicks.empty)
     {
         ticksLoc = [minC] ~ sortedAxisTicks.map!((t) => t[0]).array ~ [maxC];
-        labels = [""] ~ sortedAxisTicks.map!((t) {
-            if (t[1].empty)
-                return t[0].to!double.toAxisLabel;
-            else
-                return t[1];
-        }).array ~ [""];
+        // add voldermort type.. Using ticksLock and sortedAxisTicks
+        import std.stdio : writeln;
+        struct LabelRange(R) {
+            bool init = false;
+            double[] ticksLoc;
+            string[] ticksLab;
+            this(double[] tl, R sortedAxisTicks) {
+                ticksLoc = tl;
+                ticksLab = [""] ~ sortedAxisTicks.map!((t) => t[1]).array ~ [""];
+            }
+            @property bool empty() 
+            {
+                return ticksLoc.empty;
+            }
+            @property auto front()
+            {
+                if (!init || ticksLoc.length == 1)
+                    return "";
+                if (!ticksLab.front.empty)
+                    return ticksLab.front;
+                return toAxisLabel(ticksLoc.front, ticksLoc[1] - ticksLoc[0]);
+            }
+            void popFront() {
+                ticksLoc.popFront;
+                ticksLab.popFront;
+                if (!init) {
+                    init = true;
+                }
+            }
+        }
+        auto lr = LabelRange!(typeof(sortedAxisTicks))(ticksLoc, sortedAxisTicks);
+        foreach(lab ; lr)
+            labels ~= lab;
     }
     else
     {
         import std.math : round;
         import std.conv : to;
-        ticksLoc = Axis(minC, maxC).adjustTickWidth(round(6.0*scaling).to!size_t).axisTicks.array;
-        labels = ticksLoc.map!((a) => a.to!double.toAxisLabel).array;
+        auto axis = Axis(minC, maxC).adjustTickWidth(round(6.0*scaling).to!size_t);
+        ticksLoc = axis.axisTicks.array;
+        labels = ticksLoc.map!((a) => a.to!double.toAxisLabel(axis.tick_width)).array;
     }
 
     if (type == "x")
@@ -313,7 +364,7 @@ unittest
     auto aes = axisAes("x", 0.0, 1.0, 2.0);
     assertEqual(aes.front.x, 0.0);
     assertEqual(aes.front.y, 2.0);
-    assertEqual(aes.front.label, "0");
+    assertEqual(aes.front.label, "0.0");
 
     aes = axisAes("y", 0.0, 1.0, 2.0, 1.0, [Tuple!(double, string)(0.2, "lbl")]);
     aes.popFront;

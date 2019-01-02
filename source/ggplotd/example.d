@@ -464,9 +464,9 @@ unittest
     import ggplotd.ggplotd : GGPlotD, putIn;
     import ggplotd.geom : geomPoint;
 
-    auto gg = [[18.0, 0.0], [18.1, 1.0], [18.2, 2.0]] // test1.png
+    //auto gg = [[18.0, 0.0], [18.1, 1.0], [18.2, 2.0]] // test1.png
     //auto gg = [[18.0, 0.0], [18.5, 1.0], [19.0, 2.0], [19.5, 3.0], [20.0, 4.0]] // test2.png
-    //auto gg = [[18.0, 0.0], [19.0, 1.0], [20.0, 2.0], [21.0, 3.0]] // test3.png
+    auto gg = [[18.0, 0.0], [19.0, 1.0], [20.0, 2.0], [21.0, 3.0]] // test3.png
         .map!((a) =>
             aes!("x", "y", "colour")(a[0], a[1], "red")
         )
